@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.ImagePattern?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.Group?>
+<AnchorPane fx:id="mainContainer" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.RegisterController">
+    <children>
+        <AnchorPane layoutX="25.0" layoutY="25.0" prefHeight="550.0" prefWidth="850.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 15, 0, 0, 0);" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <children>
+
+                <VBox alignment="CENTER" prefHeight="550.0" prefWidth="320.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364); -fx-background-radius: 20 0 0 20;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <StackPane fx:id="avatarContainer" maxWidth="130.0" maxHeight="130.0" prefHeight="130.0" prefWidth="130.0">
+                            <children>
+
+                                <StackPane fx:id="imageCropContainer" maxWidth="130.0" maxHeight="130.0" prefHeight="130.0" prefWidth="130.0">
+                                    <children>
+                                        <ImageView fx:id="avatarImageView" fitHeight="150.0" preserveRatio="true" style="-fx-cursor: move;" />
+                                    </children>
+                                </StackPane>
+
+                                <Circle radius="65.0" stroke="WHITE" strokeWidth="4.0" fill="TRANSPARENT" mouseTransparent="true">
+                                    <effect>
+                                        <DropShadow color="#00000059" radius="12.0" spread="0.15" />
+                                    </effect>
+                                </Circle>
+
+                                <Circle radius="65.0" fill="TRANSPARENT" onMouseClicked="#handleAvatarClick" style="-fx-cursor: hand;" />
+
+                            </children>
+                        </StackPane>
+
+                        <Label text="Upload Avatar" textFill="#bdc3c7">
+                            <font>
+                                <Font name="Segoe UI Italic" size="12.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets top="-10.0" />
+                            </VBox.margin>
+                        </Label>
+
+                        <Label fx:id="appNameLabel" alignment="CENTER" prefWidth="280.0" text="Nguyễn Văn A" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                            <font>
+                                <Font name="Segoe UI Bold" size="24.0" />
+                            </font>
+                        </Label>
+
+                        <Label text="Tham gia cùng cộng đồng học tập EduPath ngay hôm nay!" textAlignment="CENTER" textFill="#dfe6e9" wrapText="true">
+                            <font>
+                                <Font name="Segoe UI" size="14.0" />
+                            </font>
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <VBox alignment="CENTER_LEFT" layoutX="320.0" prefHeight="550.0" prefWidth="530.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label text="Đăng Ký Tài Khoản" textFill="#2d3436">
+                            <font>
+                                <Font name="Segoe UI Bold" size="28.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </Label>
+
+                        <VBox spacing="5.0">
+                            <Label text="Họ và tên" textFill="#636e72">
+                                <font><Font name="Segoe UI" size="13.0" /></font>
+                            </Label>
+                            <TextField fx:id="fullNameTextField" promptText="Nhập họ và tên của bạn" style="-fx-background-color: #f1f2f6; -fx-background-radius: 8; -fx-border-color: transparent; -fx-padding: 10;">
+                                <font><Font size="13.0" /></font>
+                            </TextField>
+                        </VBox>
+
+                        <VBox spacing="5.0">
+                            <Label text="Tên đăng nhập" textFill="#636e72">
+                                <font><Font name="Segoe UI" size="13.0" /></font>
+                            </Label>
+                            <TextField fx:id="userNameTextField" promptText="Chọn tên đăng nhập" style="-fx-background-color: #f1f2f6; -fx-background-radius: 8; -fx-border-color: transparent; -fx-padding: 10;">
+                                <font><Font size="13.0" /></font>
+                            </TextField>
+                        </VBox>
+
+                        <HBox spacing="15.0">
+                            <children>
+                                <VBox prefWidth="240.0" spacing="5.0">
+                                    <Label text="Email" textFill="#636e72">
+                                        <font><Font name="Segoe UI" size="13.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="emailTextField" promptText="example@email.com" style="-fx-background-color: #f1f2f6; -fx-background-radius: 8; -fx-border-color: transparent; -fx-padding: 10;">
+                                        <font><Font size="13.0" /></font>
+                                    </TextField>
+                                </VBox>
+                                <VBox prefWidth="240.0" spacing="5.0">
+                                    <Label text="Số điện thoại" textFill="#636e72">
+                                        <font><Font name="Segoe UI" size="13.0" /></font>
+                                    </Label>
+                                    <TextField fx:id="phoneTextField" promptText="09xx xxx xxx" style="-fx-background-color: #f1f2f6; -fx-background-radius: 8; -fx-border-color: transparent; -fx-padding: 10;">
+                                        <font><Font size="13.0" /></font>
+                                    </TextField>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="15.0">
+                            <children>
+                                <VBox prefWidth="240.0" spacing="5.0">
+                                    <Label text="Mật khẩu" textFill="#636e72">
+                                        <font><Font name="Segoe UI" size="13.0" /></font>
+                                    </Label>
+                                    <PasswordField fx:id="passwordField" promptText="Mật khẩu" style="-fx-background-color: #f1f2f6; -fx-background-radius: 8; -fx-border-color: transparent; -fx-padding: 10;" />
+                                </VBox>
+                                <VBox prefWidth="240.0" spacing="5.0">
+                                    <Label text="Nhập lại mật khẩu" textFill="#636e72">
+                                        <font><Font name="Segoe UI" size="13.0" /></font>
+                                    </Label>
+                                    <PasswordField fx:id="confirmPasswordField" promptText="Xác nhận mật khẩu" style="-fx-background-color: #f1f2f6; -fx-background-radius: 8; -fx-border-color: transparent; -fx-padding: 10;" />
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <Button fx:id="registerButton" onAction="#onRegisterButtonClick" mnemonicParsing="false" prefHeight="45.0" prefWidth="500.0" style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 25; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(230, 126, 34, 0.4), 10, 0, 0, 3);" text="TẠO TÀI KHOẢN">
+                            <VBox.margin>
+                                <Insets top="15.0" />
+                            </VBox.margin>
+                            <font>
+                                <Font name="Segoe UI Bold" size="14.0" />
+                            </font>
+                        </Button>
+
+                        <HBox alignment="CENTER" spacing="5.0">
+                            <children>
+                                <Label text="Đã có tài khoản?" textFill="#636e72">
+                                    <font><Font name="Segoe UI" size="13.0" /></font>
+                                </Label>
+                                <Button fx:id="backToLoginButton" onAction="#onLoginLinkClick" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-padding: 0; -fx-cursor: hand;" text="Đăng nhập ngay" textFill="#0984e3">
+                                    <font>
+                                        <Font name="Segoe UI Bold" size="13.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
+
+                    </children>
+                    <padding>
+                        <Insets left="30.0" right="30.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
