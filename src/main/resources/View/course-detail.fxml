@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="768.0"
+      prefWidth="1200.0"
+      spacing="0.0"
+      stylesheets="@../Css/global.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.CourseDetailController">
+
+    <ScrollPane fitToWidth="true" style="-fx-background: #f4f7f6; -fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+        <content>
+            <VBox spacing="0.0">
+                <children>
+                    <StackPane alignment="BOTTOM_LEFT" prefHeight="300.0" style="-fx-background-color: #1a202c;">
+                        <children>
+                            <ImageView fitHeight="300.0" fitWidth="900.0" opacity="0.4" pickOnBounds="true" preserveRatio="false">
+                                <image>
+                                    <Image url="https://codelearn.io/Themes/TheCodeCamp/Resources/Images/Course/HtmlCss/banner-html-css-min.jpg" />
+                                </image>
+                            </ImageView>
+                            <VBox spacing="10.0" style="-fx-padding: 40;">
+                                <children>
+                                    <Label style="-fx-background-color: #5d78ff; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 5 10; -fx-background-radius: 4;" text="Phát triển Web" />
+                                    <Label style="-fx-font-size: 32px; -fx-font-weight: 900; -fx-text-fill: white;" text="HTML5 &amp; CSS3: Từ cơ bản đến nâng cao" wrapText="true" />
+                                    <Label style="-fx-font-size: 16px; -fx-text-fill: #e2e8f0;" text="Lộ trình bài bản nhất để trở thành Frontend Developer chuyên nghiệp." />
+                                    <HBox spacing="15.0">
+                                        <Label style="-fx-text-fill: #f6e05e; -fx-font-weight: bold;" text="4.8 ★★★★★" />
+                                        <Label style="-fx-text-fill: white;" text="(1,500 học viên)" />
+                                    </HBox>
+                                </children>
+                            </VBox>
+                        </children>
+                    </StackPane>
+
+                    <HBox spacing="0.0" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 1 0;">
+                        <children>
+                            <Button fx:id="overviewTabButton" onAction="#handleTabSelection" prefHeight="50.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #5d78ff; -fx-border-color: #5d78ff; -fx-border-width: 0 0 3 0;" text="Tổng quan" />
+                            <Button fx:id="curriculumTabButton" onAction="#handleTabSelection" prefHeight="50.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #718096;" text="Nội dung khóa học" />
+                            <Button fx:id="reviewsTabButton" onAction="#handleTabSelection" prefHeight="50.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-text-fill: #718096;" text="Đánh giá" />
+                        </children>
+                        <padding>
+                            <Insets left="40.0" right="40.0" />
+                        </padding>
+                    </HBox>
+
+                    <StackPane fx:id="contentPane" style="-fx-padding: 40;">
+                        <children>
+                            <fx:include fx:id="overviewContent" source="course-overview.fxml" />
+                        </children>
+                    </StackPane>
+                </children>
+            </VBox>
+        </content>
+    </ScrollPane>
+
+    <VBox prefWidth="350.0" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-width: 0 0 0 1;">
+        <children>
+            <VBox spacing="20.0" style="-fx-padding: 30;">
+                <children>
+                    <Label style="-fx-font-size: 28px; -fx-font-weight: 900; -fx-text-fill: #2d3748;" text="999.000 đ" />
+                    <Button maxWidth="Infinity" styleClass="btn-primary" style="-fx-font-size: 16px; -fx-padding: 12;" text="Đăng ký học ngay" />
+                    <Button maxWidth="Infinity" styleClass="btn-outline" text="Thêm vào giỏ hàng" />
+                    <Label alignment="CENTER" maxWidth="Infinity" style="-fx-text-fill: #718096; -fx-font-size: 12px;" text="Hoàn tiền trong 30 ngày nếu không hài lòng" />
+
+                    <Separator />
+
+                    <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Khóa học này bao gồm:" />
+                    <VBox spacing="12.0">
+                        <children>
+                            <HBox spacing="10.0">
+                                <ImageView fitHeight="20.0" fitWidth="20.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/video-call.png" /></ImageView>
+                                <Label text="32 giờ video theo yêu cầu" />
+                            </HBox>
+                            <HBox spacing="10.0">
+                                <ImageView fitHeight="20.0" fitWidth="20.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/document--v1.png" /></ImageView>
+                                <Label text="15 bài viết chuyên sâu" />
+                            </HBox>
+                            <HBox spacing="10.0">
+                                <ImageView fitHeight="20.0" fitWidth="20.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/source-code.png" /></ImageView>
+                                <Label text="20 bài tập Coding" />
+                            </HBox>
+                            <HBox spacing="10.0">
+                                <ImageView fitHeight="20.0" fitWidth="20.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/infinity.png" /></ImageView>
+                                <Label text="Truy cập trọn đời" />
+                            </HBox>
+                        </children>
+                    </VBox>
+                </children>
+            </VBox>
+        </children>
+    </VBox>
+</HBox>

@@ -1,0 +1,74 @@
+/* courses.css */
+.scroll-pane {
+    -fx-background-color: transparent; /* Để lộ nền của global */
+    -fx-padding: -main-padding;
+}
+
+.grid-pane {
+    -fx-hgap: 24px; /* Tăng khoảng cách giữa các thẻ */
+    -fx-vgap: 24px;
+    -fx-padding: 0 0 24px 0;
+    -fx-alignment: center;
+}
+
+/* Thiết kế lại thẻ khóa học */
+.course-card {
+    -fx-background-color: -card-background;
+    -fx-background-radius: 12px; /* Bo góc nhiều hơn chút */
+    -fx-border-radius: 12px;
+    -fx-border-color: transparent; /* Ẩn viền mặc định đi */
+    /* Bóng đổ nhẹ hơn */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-padding: 0; /* Xóa padding để ảnh tràn viền */
+    -fx-cursor: hand;
+}
+
+/* Hiệu ứng khi di chuột vào thẻ khóa học (Rất quan trọng để tạo cảm giác web) */
+.course-card:hover {
+    /* Nổi lên một chút */
+    -fx-translate-y: -4px;
+    /* Bóng đậm hơn */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 86, 210, 0.2), 15, 0, 0, 6);
+}
+
+/* Ảnh thumbnail */
+.course-image {
+    /* Bo góc trên của ảnh để khớp với thẻ */
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-border-radius: 12px 12px 0 0;
+}
+
+/* Tiêu đề khóa học trong thẻ */
+.course-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
+    -fx-padding: 12 12 4 12; /* Padding riêng cho phần nội dung */
+}
+
+/* Tên giảng viên */
+.instructor-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: -text-secondary;
+    -fx-padding: 0 12 8 12;
+}
+
+/* Thanh tiến độ */
+.progress-bar {
+    -fx-accent: -primary-color; /* Đổi màu thanh tiến độ sang xanh chủ đạo */
+    -fx-padding: 0 12 0 12;
+}
+.progress-bar .track {
+    -fx-background-color: #E0E0E0; /* Nền thanh tiến độ nhạt hơn */
+    -fx-background-radius: 4px;
+}
+.progress-bar .bar {
+    -fx-background-radius: 4px;
+}
+
+/* Nút Tiếp tục */
+.continue-button {
+    /* Kế thừa .button từ global, chỉ chỉnh lại margin */
+    -fx-margin: 12px;
+    -fx-pref-width: 100%; /* Nút rộng full thẻ */
+}

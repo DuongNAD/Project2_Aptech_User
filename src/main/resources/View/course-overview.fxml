@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" style="-fx-padding: 20 0;">
+    <children>
+        <VBox style="-fx-border-color: #D1D7DC; -fx-border-width: 1; -fx-padding: 20;">
+            <Label text="Bạn sẽ học được gì?" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 0 0 15 0;" />
+            <GridPane hgap="20" vgap="10">
+                <children>
+                    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="10"><Label text="✔" style="-fx-text-fill: #666;"/><Label text="Hiểu rõ bản chất ngôn ngữ Java" wrapText="true"/></HBox>
+                    <HBox GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="10"><Label text="✔" style="-fx-text-fill: #666;"/><Label text="Làm chủ lập trình hướng đối tượng (OOP)" wrapText="true"/></HBox>
+                    <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" spacing="10"><Label text="✔" style="-fx-text-fill: #666;"/><Label text="Xây dựng ứng dụng Desktop với JavaFX" wrapText="true"/></HBox>
+                    <HBox GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="10"><Label text="✔" style="-fx-text-fill: #666;"/><Label text="Kết nối cơ sở dữ liệu MySQL" wrapText="true"/></HBox>
+                </children>
+            </GridPane>
+        </VBox>
+
+        <Label text="Mô tả" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+        <Label wrapText="true" style="-fx-line-spacing: 5px;" text="Đây là khóa học toàn diện nhất về Java dành cho người mới bắt đầu. Không cần kiến thức lập trình trước đó. Chúng ta sẽ bắt đầu từ cài đặt môi trường, biến, vòng lặp cho đến các kiến thức chuyên sâu như Đa luồng, Collection API và Stream API." />
+    </children>
+</VBox>

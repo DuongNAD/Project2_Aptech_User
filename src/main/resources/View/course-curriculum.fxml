@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2d3748;" text="Nội dung khóa học" />
+        <Label style="-fx-text-fill: #718096;" text="10 chương • 45 bài học • Thời lượng 12 giờ 30 phút" />
+
+        <Accordion style="-fx-background-color: transparent;">
+            <panes>
+                <TitledPane animated="true" text="Chương 1: Giới thiệu &amp; Cài đặt">
+                    <content>
+                        <VBox spacing="0.0" style="-fx-padding: 0; -fx-background-color: white;">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-padding: 15; -fx-border-color: #f0f0f0; -fx-border-width: 0 0 1 0;">
+                                    <ImageView fitHeight="16.0" fitWidth="16.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/play--v1.png" /></ImageView>
+                                    <Label text="1. Giới thiệu khóa học &amp; Lộ trình" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label style="-fx-text-fill: #718096;" text="05:30" />
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-padding: 15;">
+                                    <ImageView fitHeight="16.0" fitWidth="16.0"><Image url="https://img.icons8.com/ios-filled/50/5d78ff/play--v1.png" /></ImageView>
+                                    <Label text="2. Cài đặt VS Code và Extensions" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <Label style="-fx-text-fill: #718096;" text="12:15" />
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </TitledPane>
+
+                <TitledPane animated="true" text="Chương 2: HTML5 Cơ bản">
+                    <content>
+                        <VBox style="-fx-padding: 20;"><Label text="Nội dung đang cập nhật..." /></VBox>
+                    </content>
+                </TitledPane>
+            </panes>
+        </Accordion>
+    </children>
+</VBox>

@@ -1,0 +1,100 @@
+/* global.css */
+.root {
+    -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    -fx-background-color: #f6f7f9; /* Màu nền xám sáng của web */
+}
+
+/* --- 1. HEADER & DASHBOARD (Phần màu tối phía trên) --- */
+.header-background {
+    -fx-background-color: #1a2332; /* Màu xanh đen đặc trưng của CodeLearn */
+}
+
+.brand-logo {
+    -fx-font-size: 24px;
+    -fx-font-weight: 900;
+    -fx-text-fill: white; /* Chữ CườngLearn màu trắng */
+}
+.brand-logo-accent {
+    -fx-text-fill: #5d78ff; /* Chữ Learn màu xanh (nếu muốn tách màu) */
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b0b5c1; /* Màu chữ menu xám nhạt */
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+.nav-button:hover {
+    -fx-text-fill: white;
+}
+
+/* Phần User Info (Avatar + Progress) */
+.user-dashboard {
+    -fx-background-color: #242f41; /* Màu nền box user sáng hơn nền header 1 chút */
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 4);
+}
+
+.progress-bar-track {
+    -fx-background-color: #3a4a63; /* Màu đường ray tối */
+    -fx-background-radius: 10;
+}
+.progress-bar-fill {
+    -fx-background-color: #00d285; /* Màu xanh lá chuẩn CodeLearn */
+    -fx-background-radius: 10;
+}
+
+.stat-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #eab308; /* Màu vàng số lượng khóa học */
+}
+.stat-label {
+    -fx-text-fill: #b0b5c1;
+    -fx-font-size: 13px;
+}
+
+/* --- 2. COURSE TABS (Thanh tab Gợi ý / Đang học) --- */
+.course-tab-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #5e6e82;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-border-color: transparent transparent transparent transparent;
+    -fx-border-width: 0 0 3 0;
+    -fx-cursor: hand;
+    -fx-padding: 10 20;
+}
+.course-tab-button:hover {
+    -fx-text-fill: #1a2332;
+}
+.course-tab-button.active {
+    -fx-text-fill: #1a2332;
+    -fx-border-color: transparent transparent #5d78ff transparent; /* Gạch chân xanh */
+}
+
+/* --- 3. COURSE CARDS (Thẻ khóa học rực rỡ) --- */
+.course-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 2);
+    -fx-cursor: hand;
+}
+.course-card:hover {
+    -fx-translate-y: -5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 15, 0, 0, 5);
+}
+
+/* Các banner màu sắc giống ảnh mẫu */
+.banner-blue { -fx-background-color: linear-gradient(to bottom right, #0056D2, #00419e); }
+.banner-green { -fx-background-color: linear-gradient(to bottom right, #28a745, #218838); }
+.banner-yellow { -fx-background-color: linear-gradient(to bottom right, #ffc107, #d39e00); }
+.banner-purple { -fx-background-color: linear-gradient(to bottom right, #6f42c1, #59359a); }
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a2332;
+}

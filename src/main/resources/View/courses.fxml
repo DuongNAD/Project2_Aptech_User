@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="700.0"
+      prefWidth="1024.0"
+      spacing="0.0"
+      style="-fx-background-color: #f4f7f6;"
+      stylesheets="@../Css/global.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.controller.CoursesController">
+
+    <children>
+        <VBox spacing="20.0" style="-fx-background-color: white; -fx-padding: 20 40 30 40; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <Label style="-fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: #1a305e;" text="Khám phá khóa học" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button styleClass="btn-primary" text="Khóa học của tôi" />
+                </HBox>
+
+                <HBox spacing="15.0">
+                    <TextField prefHeight="40.0" prefWidth="400.0" promptText="Tìm kiếm khóa học (Java, Python...)" style="-fx-background-radius: 8; -fx-border-color: #e2e8f0; -fx-border-radius: 8; -fx-padding: 0 15;" />
+                    <ComboBox prefHeight="40.0" prefWidth="180.0" promptText="Danh mục" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-radius: 8; -fx-background-radius: 8;" />
+                    <ComboBox prefHeight="40.0" prefWidth="180.0" promptText="Sắp xếp theo" style="-fx-background-color: white; -fx-border-color: #e2e8f0; -fx-border-radius: 8; -fx-background-radius: 8;" />
+                </HBox>
+            </children>
+        </VBox>
+
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+            <content>
+                <FlowPane hgap="30.0" vgap="30.0">
+                    <padding>
+                        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                    </padding>
+                    <children>
+
+                        <VBox prefWidth="280.0" styleClass="card">
+                            <children>
+                                <ImageView fitHeight="160.0" fitWidth="280.0" pickOnBounds="true">
+                                    <image>
+                                        <Image url="https://codelearn.io/Themes/TheCodeCamp/Resources/Images/Course/HtmlCss/banner-html-css-min.jpg" />
+                                    </image>
+                                </ImageView>
+                                <VBox spacing="10.0" style="-fx-padding: 15;">
+                                    <children>
+                                        <Label style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2d3748;" text="HTML/CSS cho người mới" wrapText="true" />
+                                        <Label style="-fx-text-fill: #718096; -fx-font-size: 13px;" text="Xây dựng giao diện web từ con số 0. Thực hành dự án thực tế." wrapText="true" />
+
+                                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                            <Label style="-fx-text-fill: #f6ad55;" text="★★★★★" />
+                                            <Label style="-fx-text-fill: #a0aec0; -fx-font-size: 12px;" text="(1,234)" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Label style="-fx-text-fill: #5d78ff; -fx-font-weight: bold;" text="999.000 đ" />
+                                        </HBox>
+
+                                        <Button maxWidth="Infinity" onAction="#GoToDetail" styleClass="btn-outline" text="Xem chi tiết" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+
+                    </children>
+                </FlowPane>
+            </content>
+        </ScrollPane>
+    </children>
+</VBox>

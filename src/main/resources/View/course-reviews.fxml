@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox spacing="25.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" style="-fx-padding: 20 0;">
+    <children>
+        <Label text="Đánh giá từ học viên" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+        <HBox alignment="CENTER_LEFT" spacing="20.0">
+            <Label text="4.8" style="-fx-font-size: 64px; -fx-font-weight: 900; -fx-text-fill: #F7C32E;" />
+            <VBox alignment="CENTER_LEFT">
+                <Label text="★★★★★" style="-fx-font-size: 24px; -fx-text-fill: #F7C32E;" />
+                <Label text="Dựa trên 1,234 đánh giá" style="-fx-text-fill: #6A6F73;" />
+            </VBox>
+        </HBox>
+
+        <VBox spacing="20.0">
+            <VBox style="-fx-border-color: #D1D7DC; -fx-border-width: 0 0 1 0; -fx-padding: 0 0 20 0;">
+                <children>
+                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                        <Circle radius="20.0" style="-fx-fill: #2D2F31;" /> <VBox>
+                        <Label text="Trần Văn B" style="-fx-font-weight: bold;" />
+                        <HBox spacing="10">
+                            <Label text="★★★★★" style="-fx-text-fill: #F7C32E;" />
+                            <Label text="• 2 tuần trước" style="-fx-text-fill: #6A6F73; -fx-font-size: 12px;" />
+                        </HBox>
+                    </VBox>
+                    </HBox>
+                    <Label text="Khóa học rất hay, giảng viên nhiệt tình. Phần OOP giải thích cực kỳ dễ hiểu." wrapText="true" style="-fx-padding: 10 0 0 0;" />
+                </children>
+            </VBox>
+
+            <VBox style="-fx-border-color: #D1D7DC; -fx-border-width: 0 0 1 0; -fx-padding: 0 0 20 0;">
+                <children>
+                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                        <Circle radius="20.0" style="-fx-fill: #5624d0;" />
+                        <VBox>
+                            <Label text="Lê Thị C" style="-fx-font-weight: bold;" />
+                            <HBox spacing="10">
+                                <Label text="★★★★☆" style="-fx-text-fill: #F7C32E;" />
+                                <Label text="• 1 tháng trước" style="-fx-text-fill: #6A6F73; -fx-font-size: 12px;" />
+                            </HBox>
+                        </VBox>
+                    </HBox>
+                    <Label text="Nội dung tốt nhưng phần cài đặt môi trường hơi nhanh. Mong giảng viên update thêm." wrapText="true" style="-fx-padding: 10 0 0 0;" />
+                </children>
+            </VBox>
+        </VBox>
+    </children>
+</VBox>
