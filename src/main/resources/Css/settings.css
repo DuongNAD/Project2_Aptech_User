@@ -1,0 +1,89 @@
+/* Nền tổng thể */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane .viewport {
+    -fx-background-color: #F7F9FC;
+}
+
+/* Tiêu đề trang */
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #1A202C;
+}
+.page-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #718096;
+}
+
+/* --- CARD STYLE (Khối nội dung trắng) --- */
+.settings-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 2);
+    -fx-padding: 25;
+    -fx-spacing: 15;
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2D3748;
+}
+
+.card-separator .line {
+    -fx-border-color: #EDF2F7;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* --- INPUT FIELDS (Ô nhập liệu) --- */
+.input-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A5568;
+    -fx-font-size: 13px;
+}
+
+.input-field {
+    -fx-background-color: #F7FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 12;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2D3748;
+}
+
+.input-field:focused {
+    -fx-border-color: #3182CE; /* Viền xanh khi nhập */
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(49, 130, 206, 0.2), 5, 0, 0, 0);
+}
+
+/* --- BUTTONS --- */
+.btn-primary {
+    -fx-background-color: #3182CE;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+.btn-primary:hover {
+    -fx-background-color: #2B6CB0;
+}
+
+.btn-secondary {
+    -fx-background-color: white;
+    -fx-text-fill: #4A5568;
+    -fx-border-color: #CBD5E0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+.btn-secondary:hover {
+    -fx-background-color: #EDF2F7;
+    -fx-text-fill: #2D3748;
+}

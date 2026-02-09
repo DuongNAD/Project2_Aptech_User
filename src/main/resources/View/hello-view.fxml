@@ -3,43 +3,62 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="768.0"
-            prefWidth="1280.0"
-            stylesheets="@../Css/global.css"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.controller.HelloController">
+<BorderPane prefHeight="768.0" prefWidth="1280.0" stylesheets="@/Css/global.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.HelloController">
 
     <left>
-        <VBox prefWidth="250.0" spacing="10.0" style="-fx-background-color: #1C1D1F;">
-            <children>
-                <VBox alignment="CENTER" prefHeight="100.0">
-                    <Label text="EduPath" style="-fx-text-fill: white; -fx-font-weight: 900; -fx-font-size: 24px;" />
-                </VBox>
+        <StackPane fx:id="sidebar" alignment="CENTER_RIGHT">
 
-                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" text="🏠  Trang chủ" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15 30;" />
-                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" text="📚  Khóa học của tôi" style="-fx-background-color: transparent; -fx-text-fill: #D1D7DC; -fx-font-size: 16px; -fx-padding: 15 30;" />
-                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" text="🛒  Cửa hàng" style="-fx-background-color: #2D2F31; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 15 30; -fx-border-color: #0056D2; -fx-border-width: 0 0 0 4;" />
-                <Button alignment="BASELINE_LEFT" maxWidth="Infinity" text="⚙  Cài đặt" style="-fx-background-color: transparent; -fx-text-fill: #D1D7DC; -fx-font-size: 16px; -fx-padding: 15 30;" />
-            </children>
-        </VBox>
+            <VBox prefWidth="260.0" spacing="15.0" styleClass="sidebar">
+                <children>
+                    <VBox alignment="CENTER_LEFT" prefHeight="80.0" style="-fx-padding: 0 0 0 25;">
+                        <children>
+                            <Label styleClass="logo-label" text="EduPath" />
+                            <Label style="-fx-text-fill: #718096; -fx-font-size: 12px; -fx-font-weight: bold;" text="System" />
+                        </children>
+                    </VBox>
+
+                    <VBox spacing="8.0" VBox.vgrow="ALWAYS">
+                        <children>
+                            <Button fx:id="homeBtn" maxWidth="Infinity" styleClass="nav-btn, nav-btn-active" text="🏠   Trang chủ" />
+                            <Button fx:id="myCoursesBtn" maxWidth="Infinity" styleClass="nav-btn" text="📚   Khóa học của tôi" />
+                            <Button fx:id="shopBtn" maxWidth="Infinity" styleClass="nav-btn" text="🛒   Cửa hàng" />
+                            <Button fx:id="statisticsBtn" maxWidth="Infinity" styleClass="nav-btn" text="📊   Thống kê" />
+
+                            <VBox VBox.vgrow="ALWAYS" /> <Separator style="-fx-opacity: 0.2; -fx-background-color: #A0AEC0;" />
+                            <Button fx:id="settingsBtn" maxWidth="Infinity" styleClass="nav-btn" text="⚙   Cài đặt" />
+                            <Button fx:id="logoutBtn" maxWidth="Infinity" style="-fx-text-fill: #FC8181;" styleClass="nav-btn" text="🚪   Đăng xuất" />
+                        </children>
+                    </VBox>
+                </children>
+            </VBox>
+
+            <Button onAction="#closeSidebar" styleClass="btn-sidebar-close" text="❮" />
+
+        </StackPane>
     </left>
 
     <center>
-        <StackPane fx:id="contentArea">
-            <fx:include source="courses.fxml" />
-        </StackPane>
+        <VBox>
+
+            <StackPane fx:id="contentArea" styleClass="content-area" VBox.vgrow="ALWAYS">
+
+                <fx:include source="courses.fxml" />
+
+                <Button fx:id="btnOpenSidebar" managed="false" onAction="#openSidebar"
+                        styleClass="btn-floating-open" text="❯" visible="false"
+                        StackPane.alignment="BOTTOM_LEFT">
+                    <StackPane.margin>
+                        <Insets bottom="20.0" left="20.0" /> </StackPane.margin>
+                </Button>
+
+            </StackPane>
+        </VBox>
     </center>
-    <ImageView fitHeight="140.0" fitWidth="260.0" pickOnBounds="true">
-        <image>
-            <Image url="@../Images/html_css_course.webp" />
-        </image>
-    </ImageView>
 
 </BorderPane>

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import org.example.dao.UserDao;
 import org.example.model.User;
 import org.example.service.EmailService;
+import org.example.util.SecurityUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -124,6 +125,7 @@ public class RegisterController implements Initializable {
 
     @FXML
     public void onRegisterButtonClick() {
+
         String fullName = fullNameTextField.getText();
         String username = userNameTextField.getText();
         String email = emailTextField.getText();
@@ -166,8 +168,8 @@ public class RegisterController implements Initializable {
             return;
         }
 
-
-        User newUser = new User(0, username, fullName, email, password, "student", "default.png", false);
+        String hashedPassword = SecurityUtil.hashPassword(password);
+        User newUser = new User(0, username, fullName, email, hashedPassword, "student", "default.png", false);
 
         String otp = UserDao.generateOTP();
 

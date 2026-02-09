@@ -98,3 +98,134 @@
     -fx-font-weight: bold;
     -fx-text-fill: #1a2332;
 }
+/* Reset cơ bản */
+.root {
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* --- SIDEBAR (Thanh bên trái) --- */
+.sidebar {
+    -fx-background-color: #1A202C; /* Màu đen xanh hiện đại */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+.logo-label {
+    -fx-text-fill: white;
+    -fx-font-weight: 900;
+    -fx-font-size: 26px;
+    -fx-effect: dropshadow(gaussian, rgba(99, 179, 237, 0.5), 10, 0, 0, 0); /* Hiệu ứng phát sáng nhẹ */
+}
+
+/* Style chung cho các nút ở Sidebar */
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A0AEC0; /* Màu xám nhạt */
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-alignment: BASELINE_LEFT; /* Căn chữ sang trái */
+    -fx-padding: 12 25;
+    -fx-cursor: hand;
+    -fx-background-radius: 0 30 30 0; /* Bo tròn góc bên phải cho mềm mại */
+    -fx-border-width: 0 0 0 0;
+}
+
+/* Hiệu ứng khi di chuột vào (Hover) */
+.nav-btn:hover {
+    -fx-background-color: #2D3748;
+    -fx-text-fill: white;
+    -fx-padding: 12 25 12 35; /* Dịch chữ sang phải một chút tạo hiệu ứng chuyển động */
+}
+
+/* Style cho nút ĐANG ĐƯỢC CHỌN (Active) */
+.nav-btn-active {
+    -fx-background-color: linear-gradient(to right, #2b6cb0, #2D3748); /* Màu gradient */
+    -fx-text-fill: white;
+    -fx-border-color: #63B3ED; /* Viền xanh sáng bên trái */
+    -fx-border-width: 0 0 0 4;
+}
+
+/* --- MAIN CONTENT (Phần nội dung chính) --- */
+.content-area {
+    -fx-background-color: #F7FAFC; /* Màu nền xám trắng sạch sẽ */
+}
+/* Nút Hamburger (Toggle Sidebar) */
+.btn-hamburger {
+    -fx-background-color: transparent;
+    -fx-text-fill: #1A202C; /* Màu chữ đen xanh */
+    -fx-font-size: 24px;   /* Kích thước icon to rõ */
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 5 10;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+}
+
+.btn-hamburger:hover {
+    -fx-background-color: #EDF2F7; /* Màu nền xám nhẹ khi di chuột */
+    -fx-text-fill: #3182CE; /* Đổi màu xanh khi hover */
+}
+
+/* Nút thu gọn nhỏ xinh ở Sidebar */
+.btn-mini-toggle {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A0AEC0; /* Màu chữ xám nhạt */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+
+    /* Tạo hình tròn nhỏ */
+    -fx-min-width: 30px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+    -fx-background-radius: 50%;
+
+    /* Viền mỏng cho tinh tế */
+    -fx-border-color: #4A5568;
+    -fx-border-radius: 50%;
+}
+
+.btn-mini-toggle:hover {
+    -fx-background-color: #2D3748; /* Nền xám đậm khi hover */
+    -fx-text-fill: white;            /* Chữ trắng */
+    -fx-border-color: #CBD5E0;       /* Viền sáng hơn */
+}
+/* Nút Đóng (<) nằm giữa Sidebar */
+.btn-sidebar-close {
+    -fx-background-color: rgba(255, 255, 255, 0.1); /* Nền mờ nhẹ */
+    -fx-text-fill: #A0AEC0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-min-width: 30px;
+    -fx-min-height: 40px; /* Cao hơn chút cho dễ bấm */
+    -fx-background-radius: 5px 0 0 5px; /* Bo góc bên trái */
+}
+.btn-sidebar-close:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+}
+
+/* Nút Mở (>>>) trôi ở góc dưới màn hình */
+.btn-floating-open {
+    -fx-background-color: white;
+    -fx-text-fill: #2D3748;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+
+    /* Hiệu ứng bóng đổ để nút nổi lên */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 2);
+
+    /* Hình tròn */
+    -fx-min-width: 45px;
+    -fx-min-height: 45px;
+    -fx-max-width: 45px;
+    -fx-max-height: 45px;
+    -fx-background-radius: 50%;
+}
+.btn-floating-open:hover {
+    -fx-background-color: #3182CE; /* Màu xanh khi hover */
+    -fx-text-fill: white;
+}

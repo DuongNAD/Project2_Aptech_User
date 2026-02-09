@@ -20,7 +20,7 @@
 <ScrollPane fitToWidth="true"
             hbarPolicy="NEVER"
             style="-fx-background-color: #1a2332;"
-            stylesheets="@../Css/global.css"
+            stylesheets="@/Css/global.css"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.example.controller.CoursesController">
@@ -70,7 +70,7 @@
                                                 <HBox spacing="15.0" alignment="CENTER_LEFT">
                                                     <Circle radius="35.0" style="-fx-fill: #cfd8dc; -fx-stroke: #eab308; -fx-stroke-width: 2;" />
                                                     <VBox alignment="CENTER_LEFT">
-                                                        <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" text="cuonganhdn2000@..." />
+                                                        <Label style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" text="cuonganhdn2000@gmail.com" />
                                                         <Label style="-fx-text-fill: #b0b5c1;" text="Thành viên mới" />
                                                     </VBox>
                                                 </HBox>

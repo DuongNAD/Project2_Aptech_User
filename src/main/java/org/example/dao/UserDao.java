@@ -1,17 +1,15 @@
 package org.example.dao;
 
+import org.example.connect.DatabaseConnect;
 import org.example.model.User;
+import org.example.util.SecurityUtil;
 
 import java.sql.*;
 
 public class UserDao {
-    private final String url = "jdbc:mysql://localhost:3306/elearning_system";
-    private final String user = "root";
-    private final String password = "";
-
     public boolean register(User newUser) {
         String sql = "INSERT INTO users (user_name, full_name, password_hash, email, role, avatar_url, is_active) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try(Connection conn = DriverManager.getConnection(url,user,this.password);
+        try(Connection conn = DatabaseConnect.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, newUser.getUsername());
@@ -38,7 +36,7 @@ public class UserDao {
     public boolean isEmailExists(String email) {
         String sql = "SELECT user_id FROM users WHERE email = ?";
 
-        try (Connection conn = DriverManager.getConnection(url,user,this.password);
+        try (Connection conn = DatabaseConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setString(1, email);
 
@@ -55,7 +53,7 @@ public class UserDao {
     public User login(String loginKey, String password) {
         String sql = "SELECT * FROM users WHERE (email = ? OR user_name = ?) AND password_hash = ?";
 
-        try (Connection conn = DriverManager.getConnection(url, user, this.password);
+        try (Connection conn = DatabaseConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, loginKey);
@@ -89,9 +87,9 @@ public class UserDao {
         return null;
     }
 
-    public User getUserByEmail(String email) {
+    public static User getUserByEmail(String email) {
         String sql = "SELECT * FROM users WHERE email = ?";
-        try (Connection conn = DriverManager.getConnection(url, user, this.password);
+        try (Connection conn = DatabaseConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, email);
@@ -117,7 +115,7 @@ public class UserDao {
 
     public boolean isUsernameExists(String username) {
         String sql = "SELECT user_id FROM users WHERE user_name = ?";
-        try (Connection conn = DriverManager.getConnection(url, user, this.password);
+        try (Connection conn = DatabaseConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();
@@ -131,7 +129,7 @@ public class UserDao {
     public boolean updatePassword(String email, String newPassword) {
         String sql = "UPDATE users SET password_hash = ? WHERE email = ?";
 
-        try(Connection conn = DriverManager.getConnection(url,user,this.password);
+        try(Connection conn = DatabaseConnect.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setString(1, newPassword);
             stmt.setString(2, email);
@@ -145,4 +143,55 @@ public class UserDao {
         }
     }
 
+    public boolean checkPassword(int userId, String currentPassword) {
+        String sql = "SELECT password_hash FROM users WHERE user_id = ?";
+
+        try (Connection conn = DatabaseConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String storedHash = rs.getString("password_hash");
+                String hashedInput = SecurityUtil.hashPassword(currentPassword);
+                return storedHash.equals(hashedInput);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean changePassword(int userId, String newPassword) {
+        String hashedPassword = SecurityUtil.hashPassword(newPassword);
+
+        String sql = "UPDATE users SET password_hash = ? WHERE user_id = ?";
+
+        try (Connection conn = DatabaseConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, hashedPassword);
+            stmt.setInt(2, userId);
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateProfile(int userId, String fullName, String avatarUrl) {
+        String sql = "UPDATE users SET full_name = ?, avatar_url = ? WHERE user_id = ?";
+        try (Connection conn = DatabaseConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, fullName);
+            stmt.setString(2, avatarUrl);
+            stmt.setInt(3, userId);
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.dao.UserDao;
 import org.example.model.User;
+import org.example.util.UserSession;
 
 import java.awt.*;
 import java.io.IOException;
@@ -66,7 +67,7 @@ public class LoginController {
                     code = query.split("code=")[1].split("&")[0];
                 }
 
-                String response = "<html><body><h1>Dang nhap thanh cong! Ban co the dong cua so nay.</h1></body></html>";
+                String response = "<html><body><h1>Đăng nhập thành công. Vui lòng quay lại Desktop App</h1></body></html>";
                 exchange.sendResponseHeaders(200, response.length());
                 OutputStream os = exchange.getResponseBody();
                 os.write(response.getBytes());
@@ -169,7 +170,7 @@ public class LoginController {
         User user = userDao.login(loginKey, password);
 
         if(user != null) {
-
+            UserSession.getInstance().setUser(user);
             showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xin chào, " + user.getFullname() + "!");
 
             switchToHome();
@@ -202,14 +203,20 @@ public class LoginController {
     }
 
     private void switchToHome() {
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/hello-view.fxml"));
+            java.net.URL url = getClass().getResource("/View/hello-view.fxml");
+
+            if (url == null) {
+                showAlert(Alert.AlertType.ERROR, "Lỗi Nghiêm Trọng", "Không tìm thấy file FXML!\nHãy Rebuild lại dự án.");
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(url);
             Parent root = loader.load();
 
             Stage stage = (Stage) loginButton.getScene().getWindow();
-
             Scene scene = new Scene(root);
-
             stage.setTitle("CườngLearn - Dashboard Học Tập");
             stage.setScene(scene);
             stage.centerOnScreen();
@@ -217,7 +224,7 @@ public class LoginController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Lỗi Hệ Thống", "Không tìm thấy file giao diện trang chủ (home-view.fxml)!");
+            showAlert(Alert.AlertType.ERROR, "Lỗi Hệ Thống", "Lỗi khi nạp giao diện: " + e.getMessage());
         }
     }
 
