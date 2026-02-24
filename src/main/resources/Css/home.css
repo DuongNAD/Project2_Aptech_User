@@ -2,10 +2,10 @@
 /* 1. HERO SECTION (BANNER CHÀO MỪNG)                                */
 /* ================================================================= */
 .hero-banner {
-    /* Gradient từ Xanh đậm sang Xanh ngọc */
-    -fx-background-color: linear-gradient(to right, #2c3e50, #4ca1af);
+    /* Gradient từ Xanh Dương Hoàng Gia sang Xanh Biển Sáng */
+    -fx-background-color: linear-gradient(to right, #1E3A8A, #3B82F6);
     -fx-background-radius: 16;
-    -fx-effect: dropshadow(three-pass-box, rgba(44, 62, 80, 0.4), 10, 0, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(30, 58, 138, 0.4), 20, 0, 0, 8);
 }
 
 .hero-title {
@@ -22,17 +22,19 @@
 /* Nút Chính (Khám phá ngay) */
 .btn-hero-primary {
     -fx-background-color: white;
-    -fx-text-fill: #2c3e50;
-    -fx-font-weight: bold;
+    -fx-text-fill: #1E3A8A;
+    -fx-font-weight: 900;
     -fx-background-radius: 20;
     -fx-padding: 10 25;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
 }
+
 .btn-hero-primary:hover {
-    -fx-background-color: #F7FAFC;
+    -fx-background-color: #F8FAFC;
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0, 0, 4);
 }
 
 /* Nút Phụ (Thống kê) */
@@ -41,26 +43,29 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 20;
-    -fx-border-color: white;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
     -fx-border-radius: 20;
     -fx-padding: 9 24;
     -fx-cursor: hand;
 }
+
 .btn-hero-secondary:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-background-color: rgba(255, 255, 255, 0.25);
+    -fx-border-color: white;
 }
 
 /* Nút Xem tất cả (Tin tức) */
 .btn-view-all {
     -fx-background-color: transparent;
-    -fx-text-fill: #3182CE;
+    -fx-text-fill: #3B82F6;
     -fx-cursor: hand;
     -fx-font-weight: bold;
     -fx-padding: 5 10;
 }
+
 .btn-view-all:hover {
     -fx-underline: true;
-    -fx-text-fill: #2c5282;
+    -fx-text-fill: #2563EB;
 }
 
 /* ================================================================= */
@@ -68,34 +73,38 @@
 /* ================================================================= */
 .news-card-vertical {
     -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 8, 0, 0, 3);
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.04), 15, 0, 0, 6);
+    -fx-border-color: #F1F5F9;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
     -fx-cursor: hand;
 }
+
 .news-card-vertical:hover {
-    -fx-translate-y: -5;
-    -fx-effect: dropshadow(three-pass-box, rgba(49, 130, 206, 0.25), 15, 0, 0, 5);
+    -fx-translate-y: -3;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.08), 20, 0, 0, 8);
 }
 
 .news-img-top {
-    -fx-background-radius: 12 12 0 0;
+    -fx-background-radius: 16 16 0 0;
 }
 
 .news-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #1A202C;
+    -fx-text-fill: #0F172A;
 }
 
 .news-desc {
-    -fx-text-fill: #718096;
+    -fx-text-fill: #64748B;
     -fx-font-size: 13px;
     -fx-wrap-text: true;
 }
 
 .news-meta {
     -fx-font-size: 11px;
-    -fx-text-fill: #3182CE;
+    -fx-text-fill: #3B82F6;
     -fx-font-weight: bold;
 }
 
@@ -107,13 +116,15 @@
 .big-chat-container {
     -fx-background-color: white;
     -fx-background-radius: 16;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 15, 0, 0, 5);
-    -fx-border-width: 0;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.04), 15, 0, 0, 6);
+    -fx-border-color: #F1F5F9;
+    -fx-border-radius: 16;
+    -fx-border-width: 1;
 }
 
 /* --- ScrollPane (Quan trọng: !important để xóa nền xám) --- */
 .chat-scroll-pane,
-.chat-scroll-pane > .viewport {
+.chat-scroll-pane>.viewport {
     -fx-background-color: transparent !important;
     -fx-background-insets: 0 !important;
     -fx-padding: 0;
@@ -127,23 +138,28 @@
 
 /* --- Badge Online --- */
 .online-badge-container {
-    -fx-background-color: #DCFCE7; /* Nền xanh lá nhạt */
+    -fx-background-color: #DCFCE7;
+    /* Nền xanh lá nhạt */
     -fx-background-radius: 15;
     -fx-padding: 5 12;
 }
+
 .online-dot {
-    -fx-fill: #16A34A; /* Xanh đậm */
+    -fx-fill: #16A34A;
+    /* Xanh đậm */
 }
+
 .online-text {
-    -fx-text-fill: #166534; /* Chữ xanh đậm */
+    -fx-text-fill: #166534;
+    /* Chữ xanh đậm */
     -fx-font-weight: bold;
     -fx-font-size: 12px;
 }
 
 /* --- Khu vực nhập liệu (Thanh ngang dưới) --- */
 .chat-input-area-big {
-    -fx-background-color: #F1F5F9; /* Xám nhạt làm nền */
-    -fx-background-radius: 30;     /* Bo tròn */
+    -fx-background-color: #F8FAFC;
+    -fx-background-radius: 30;
     -fx-padding: 5 10;
     -fx-border-color: #E2E8F0;
     -fx-border-radius: 30;
@@ -152,15 +168,15 @@
 
 /* --- Ô nhập text (TextField) --- */
 .chat-input-home {
-    /* Làm trong suốt để ăn theo màu container */
     -fx-background-color: transparent !important;
     -fx-background-insets: 0 !important;
     -fx-border-width: 0 !important;
 
-    -fx-text-fill: #1E293B; /* Chữ màu đen xám */
+    -fx-text-fill: #0F172A;
     -fx-font-size: 14px;
     -fx-prompt-text-fill: #94A3B8;
 }
+
 /* Xóa viền xanh mặc định khi click */
 .chat-input-home:focused {
     -fx-background-color: transparent !important;
@@ -169,16 +185,17 @@
 
 /* --- Nút Gửi --- */
 .btn-send-big {
-    -fx-background-color: #3B82F6;
+    -fx-background-color: linear-gradient(to right, #3B82F6, #2563EB);
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 20;
     -fx-cursor: hand;
     -fx-padding: 8 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.3), 5, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.25), 5, 0, 0, 2);
 }
+
 .btn-send-big:hover {
-    -fx-background-color: #2563EB;
+    -fx-background-color: linear-gradient(to right, #4F46E5, #3B82F6);
     -fx-scale-x: 1.05;
 }
 
@@ -188,26 +205,65 @@
 .footer-contact {
     -fx-background-color: white;
     -fx-background-radius: 16;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 5);
+    -fx-border-color: #F1F5F9;
+    -fx-border-radius: 16;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.04), 15, 0, 0, 6);
 }
 
 .footer-title {
     -fx-font-size: 18px;
     -fx-font-weight: 900;
-    -fx-text-fill: #2D3748;
+    -fx-text-fill: #0F172A;
 }
 
 .contact-label {
-    -fx-text-fill: #A0AEC0;
+    -fx-text-fill: #64748B;
     -fx-font-size: 11px;
     -fx-font-weight: bold;
     -fx-text-transform: uppercase;
 }
 
 .contact-value {
-    -fx-text-fill: #2D3748;
+    -fx-text-fill: #0F172A;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
+}
+
+/* ================================================================= */
+/* 5. CHAT BUBBLES (BONG BÓNG TIN NHẮN)                              */
+/* ================================================================= */
+
+.msg-row {
+    -fx-padding: 2 0;
+}
+
+/* --- 1. TIN NHẮN GỬI ĐI (Bên Phải - Màu Xanh) --- */
+.msg-bubble-sent {
+    -fx-background-color: #3B82F6;
+    -fx-background-radius: 18 18 2 18;
+    -fx-padding: 10 14;
+    -fx-max-width: 400px;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.2), 5, 0, 0, 2);
+}
+
+.msg-text-sent {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+}
+
+/* --- 2. TIN NHẮN NHẬN ĐƯỢC (Bên Trái - Màu Xám) --- */
+.msg-bubble-received {
+    -fx-background-color: #F1F5F9;
+    -fx-background-radius: 18 18 18 2;
+    -fx-padding: 10 14;
+    -fx-max-width: 400px;
+}
+
+.msg-text-received {
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
 }
 
 /* ================================================================= */
@@ -216,43 +272,55 @@
 
 /* --- News Card Dark --- */
 .dark-theme .news-card-vertical {
-    -fx-background-color: #2D3748; /* Card tối màu */
+    -fx-background-color: #1A2235;
+    -fx-border-color: #2A3447;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 5);
 }
+
+.dark-theme .news-card-vertical:hover {
+    -fx-border-color: #38BDF8;
+    -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.15), 25, 0, 0, 0);
+}
+
 .dark-theme .news-title {
-    -fx-text-fill: #E2E8F0;
+    -fx-text-fill: #F8FAFC;
 }
+
 .dark-theme .news-desc {
-    -fx-text-fill: #A0AEC0;
+    -fx-text-fill: #94A3B8;
 }
+
 .dark-theme .news-meta {
-    -fx-text-fill: #63B3ED;
+    -fx-text-fill: #60A5FA;
 }
 
 /* --- Chat Dark Mode --- */
-/* 1. Nền khung chat */
 .dark-theme .big-chat-container {
-    -fx-background-color: #1E293B; /* Slate 800 - Xanh đen */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 20, 0, 0, 5);
+    -fx-background-color: #1A2235;
+    -fx-border-color: #2A3447;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 5);
 }
 
-/* 2. Badge Online */
+/* Badge Online */
 .dark-theme .online-badge-container {
-    -fx-background-color: #064E3B; /* Xanh lá đậm */
+    -fx-background-color: #064E3B;
+    /* Xanh lá đậm */
 }
+
 .dark-theme .online-dot {
-    -fx-fill: #4ADE80; /* Chấm xanh phát sáng */
+    -fx-fill: #4ADE80;
 }
+
 .dark-theme .online-text {
     -fx-text-fill: #4ADE80;
 }
 
-/* 3. Khu vực nhập liệu */
+/* Khu vực nhập liệu */
 .dark-theme .chat-input-area-big {
-    -fx-background-color: #0F172A; /* Nền rất tối */
+    -fx-background-color: #1E293B;
     -fx-border-color: #334155;
 }
 
-/* 4. Ô nhập text */
 .dark-theme .chat-input-home {
     -fx-text-fill: white !important;
     -fx-prompt-text-fill: #64748B !important;
@@ -260,117 +328,24 @@
 
 /* --- Footer Dark --- */
 .dark-theme .footer-contact {
-    -fx-background-color: #2D3748;
+    -fx-background-color: #1A2235;
+    -fx-border-color: #2A3447;
 }
+
 .dark-theme .footer-title,
 .dark-theme .contact-value {
-    -fx-text-fill: #E2E8F0;
-}
-/* ================================================================= */
-/* 5. CHAT BUBBLES (BONG BÓNG TIN NHẮN) - NEW ADDITION               */
-/* ================================================================= */
-
-/* --- Cấu hình chung cho dòng tin nhắn (HBox chứa bubble) --- */
-.msg-row {
-    -fx-padding: 2 0; /* Khoảng cách nhỏ giữa các dòng tin */
+    -fx-text-fill: #F8FAFC;
 }
 
-/* --- 1. TIN NHẮN GỬI ĐI (Bên Phải - Màu Xanh) --- */
-.msg-bubble-sent {
-    -fx-background-color: #3B82F6; /* Xanh dương Messenger */
-    -fx-background-radius: 18 18 2 18; /* Bo tròn 3 góc, góc dưới phải nhọn */
-    -fx-padding: 10 14;            /* Khoảng cách từ chữ đến viền bubble */
-    -fx-max-width: 400px;          /* Chiều rộng tối đa của tin nhắn */
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.2), 5, 0, 0, 1);
-}
-
-.msg-text-sent {
-    -fx-text-fill: white;         /* Chữ màu trắng */
-    -fx-font-size: 14px;
-    -fx-wrap-text: true;          /* Tự động xuống dòng nếu tin dài */
-}
-
-/* --- 2. TIN NHẮN NHẬN ĐƯỢC (Bên Trái - Màu Xám) --- */
-.msg-bubble-received {
-    -fx-background-color: #F1F5F9; /* Xám nhạt */
-    -fx-background-radius: 18 18 18 2; /* Bo tròn 3 góc, góc dưới trái nhọn */
-    -fx-padding: 10 14;
-    -fx-max-width: 400px;
-}
-
-.msg-text-received {
-    -fx-text-fill: #1E293B;       /* Chữ màu đen xám */
-    -fx-font-size: 14px;
-    -fx-wrap-text: true;
-}
-
-/* ================================================================= */
-/* 🌙 DARK MODE OVERRIDES (CHAT BUBBLES)                             */
-/* ================================================================= */
-
-/* Tin gửi đi trong Dark Mode (Giữ nguyên màu xanh nhưng đổi bóng) */
+/* --- Chat Bubbles Dark Mode --- */
 .dark-theme .msg-bubble-sent {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 1);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 1);
 }
 
-/* Tin nhận được trong Dark Mode (Đổi nền xám sang màu tối hơn) */
 .dark-theme .msg-bubble-received {
-    -fx-background-color: #334155; /* Slate 700 */
+    -fx-background-color: #1E293B;
 }
+
 .dark-theme .msg-text-received {
-    -fx-text-fill: #F8FAFC;       /* Chữ chuyển sang màu trắng sáng */
-}
-/* ================================================================= */
-/* 5. CHAT BUBBLES (BONG BÓNG TIN NHẮN) - NEW ADDITION               */
-/* ================================================================= */
-
-/* --- Cấu hình chung cho dòng tin nhắn (HBox chứa bubble) --- */
-.msg-row {
-    -fx-padding: 2 0; /* Khoảng cách nhỏ giữa các dòng tin */
-}
-
-/* --- 1. TIN NHẮN GỬI ĐI (Bên Phải - Màu Xanh) --- */
-.msg-bubble-sent {
-    -fx-background-color: #3B82F6; /* Xanh dương Messenger */
-    -fx-background-radius: 18 18 2 18; /* Bo tròn 3 góc, góc dưới phải nhọn */
-    -fx-padding: 10 14;            /* Khoảng cách từ chữ đến viền bubble */
-    -fx-max-width: 400px;          /* Chiều rộng tối đa của tin nhắn */
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.2), 5, 0, 0, 1);
-}
-
-.msg-text-sent {
-    -fx-text-fill: white;         /* Chữ màu trắng */
-    -fx-font-size: 14px;
-    -fx-wrap-text: true;          /* Tự động xuống dòng nếu tin dài */
-}
-
-/* --- 2. TIN NHẮN NHẬN ĐƯỢC (Bên Trái - Màu Xám) --- */
-.msg-bubble-received {
-    -fx-background-color: #F1F5F9; /* Xám nhạt */
-    -fx-background-radius: 18 18 18 2; /* Bo tròn 3 góc, góc dưới trái nhọn */
-    -fx-padding: 10 14;
-    -fx-max-width: 400px;
-}
-
-.msg-text-received {
-    -fx-text-fill: #1E293B;       /* Chữ màu đen xám */
-    -fx-font-size: 14px;
-    -fx-wrap-text: true;
-}
-
-/* ================================================================= */
-/* 🌙 DARK MODE OVERRIDES (CHAT BUBBLES)                             */
-/* ================================================================= */
-
-/* Tin gửi đi trong Dark Mode (Giữ nguyên màu xanh nhưng đổi bóng) */
-.dark-theme .msg-bubble-sent {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 1);
-}
-
-/* Tin nhận được trong Dark Mode (Đổi nền xám sang màu tối hơn) */
-.dark-theme .msg-bubble-received {
-    -fx-background-color: #334155; /* Slate 700 */
-}
-.dark-theme .msg-text-received {
-    -fx-text-fill: #F8FAFC;       /* Chữ chuyển sang màu trắng sáng */
+    -fx-text-fill: #F8FAFC;
 }

@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.shape.Circle?>
 
 <VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
@@ -25,7 +26,7 @@
         <content>
             <VBox spacing="35.0">
                 <padding>
-                    <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                    <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
                 </padding>
                 <children>
 
@@ -49,7 +50,7 @@
                             </ImageView>
                         </children>
                         <padding>
-                            <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+                            <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
                         </padding>
                     </HBox>
 
@@ -63,18 +64,9 @@
                                 </children>
                             </HBox>
 
-                            <HBox fx:id="newsContainer" spacing="20.0">
-                                <VBox styleClass="news-card-vertical" HBox.hgrow="ALWAYS">
-                                    <ImageView fitHeight="180.0" fitWidth="350.0" styleClass="news-img-top">
-                                        <image><Image url="https://img.freepik.com/free-photo/ai-technology-brain-background-digital-transformation-concept_53876-124672.jpg" /></image>
-                                    </ImageView>
-                                    <VBox spacing="8.0" style="-fx-padding: 15;">
-                                        <Label styleClass="news-title" text="DeepSeek-R1: Kẻ thách thức GPT-4?" wrapText="true"/>
-                                        <Label styleClass="news-desc" text="Phân tích mô hình AI mới..." wrapText="true" VBox.vgrow="ALWAYS"/>
-                                        <Label styleClass="news-meta" text="#AI News • 2 giờ trước" />
-                                    </VBox>
-                                </VBox>
-                            </HBox>
+                            <FlowPane fx:id="newsContainer" hgap="20.0" vgap="20.0">
+                                <!-- Du lieu duoc do tu HomeController -->
+                            </FlowPane>
                         </children>
                     </VBox>
 

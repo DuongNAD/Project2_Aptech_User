@@ -1,20 +1,15 @@
 package org.example.controller;
 
-import javafx.animation.FadeTransition;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 import javafx.util.StringConverter;
 import org.example.dao.CategoryDao;
 import org.example.dao.CourseDao;
@@ -28,14 +23,19 @@ import java.util.ResourceBundle;
 
 public class CoursesController implements Initializable {
 
-    @FXML private FlowPane coursesContainer;
-    @FXML private HBox chipsContainer;
-    @FXML private ScrollPane mainScrollPane;
-    @FXML private ComboBox<Category> categoryComboBox;
-    @FXML private VBox rootPane;
-    @FXML private HeaderController headerController;
+    @FXML
+    private FlowPane coursesContainer;
+    @FXML
+    private HBox chipsContainer;
+    @FXML
+    private ScrollPane mainScrollPane;
+    @FXML
+    private ComboBox<Category> categoryComboBox;
+    @FXML
+    private VBox rootPane;
+    @FXML
+    private HeaderController headerController;
 
-    private boolean isDarkMode = false;
     private CourseDao courseDao = new CourseDao();
     private CategoryDao categoryDao = new CategoryDao();
     private Button currentActiveBtn = null;
@@ -56,9 +56,8 @@ public class CoursesController implements Initializable {
         } else {
             rootPane.sceneProperty().addListener((obs, oldScene, newScene) -> {
                 if (newScene != null) {
-                    javafx.application.Platform.runLater(() ->
-                            org.example.util.ThemeManager.applyTheme(newScene.getRoot())
-                    );
+                    javafx.application.Platform
+                            .runLater(() -> org.example.util.ThemeManager.applyTheme(newScene.getRoot()));
                 }
             });
         }
@@ -112,6 +111,7 @@ public class CoursesController implements Initializable {
             public String toString(Category category) {
                 return category == null ? null : category.getName();
             }
+
             @Override
             public Category fromString(String string) {
                 return null;
@@ -160,6 +160,10 @@ public class CoursesController implements Initializable {
         card.setPrefWidth(260);
         card.getStyleClass().add("course-card");
 
+        // Bật Cache để giảm lag khi cuộn (quan trọng cho Shadow CSS)
+        card.setCache(true);
+        card.setCacheHint(javafx.scene.CacheHint.SPEED);
+
         StackPane imageContainer = new StackPane();
         ImageView imageView = new ImageView();
         imageView.setFitWidth(260);
@@ -173,9 +177,11 @@ public class CoursesController implements Initializable {
 
         try {
             if (course.getThumbnailUrl() != null && !course.getThumbnailUrl().isEmpty()) {
+                // Thêm true ở cuối để bật tải ảnh ngầm (background loading), không làm đơ UI
                 imageView.setImage(new Image(course.getThumbnailUrl(), 400, 0, true, true, true));
             } else {
-                imageView.setImage(new Image(getClass().getResource("/View/avatar.jpg").toExternalForm()));
+                imageView.setImage(new Image(getClass().getResource("/View/avatar.jpg").toExternalForm(), 400, 0, true,
+                        true, true));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -201,7 +207,8 @@ public class CoursesController implements Initializable {
         titleLabel.setWrapText(true);
         titleLabel.setPrefHeight(45);
 
-        String priceText = String.format("%,.0f đ", course.getSalePrice() > 0 ? course.getSalePrice() : course.getPrice());
+        String priceText = String.format("%,.0f đ",
+                course.getSalePrice() > 0 ? course.getSalePrice() : course.getPrice());
         Label priceLabel = new Label(priceText);
         priceLabel.getStyleClass().add("course-price-new");
 
@@ -217,63 +224,12 @@ public class CoursesController implements Initializable {
         return card;
     }
 
-    private void toggleTheme(ActionEvent event) {
-        // Lấy Scene hiện tại (Cửa sổ ứng dụng)
-        Scene scene = rootPane.getScene();
-        if (scene == null) return;
-
-        Parent root = scene.getRoot(); // Lấy cái gốc to nhất (chứa cả Sidebar + Content)
-
-        isDarkMode = !isDarkMode;
-
-        // Hiệu ứng mờ dần cho mượt
-        FadeTransition fadeOut = new FadeTransition(Duration.millis(150), root);
-        fadeOut.setFromValue(1.0);
-        fadeOut.setToValue(0.2);
-
-        fadeOut.setOnFinished(e -> {
-            // Logic Add/Remove class vào ROOT to nhất
-            if (isDarkMode) {
-                if (!root.getStyleClass().contains("dark-theme")) {
-                    root.getStyleClass().add("dark-theme");
-                }
-            } else {
-                root.getStyleClass().remove("dark-theme");
-            }
-
-            updateThemeIcon();
-
-            // Hiện lại
-            FadeTransition fadeIn = new FadeTransition(Duration.millis(200), root);
-            fadeIn.setFromValue(0.2);
-            fadeIn.setToValue(1.0);
-            fadeIn.play();
-        });
-
-        fadeOut.play();
-    }
-
-    private void updateThemeIcon() {
-        if (headerController == null || headerController.iconTheme == null) return;
-
-        String iconUrl = isDarkMode
-                ? "https://img.icons8.com/ios-glyphs/30/ffffff/sun--v1.png"
-                : "https://img.icons8.com/ios-glyphs/30/000000/moon-symbol.png";
-
-        try {
-            headerController.iconTheme.setImage(new Image(iconUrl));
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
     private void goToDetail(Course course, javafx.event.Event event) {
         org.example.util.Navigation.to(
                 event,
                 org.example.util.Navigation.COURSE_DETAIL_VIEW,
                 (org.example.controller.CourseDetailController controller) -> {
                     controller.setCourseData(course);
-                }
-        );
+                });
     }
 }

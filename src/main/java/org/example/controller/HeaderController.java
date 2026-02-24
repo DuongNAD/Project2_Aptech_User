@@ -27,15 +27,22 @@ import java.util.ResourceBundle;
 
 public class HeaderController implements Initializable {
 
-    @FXML private Label lblPageTitle;
-    @FXML private Label lblUserName;
-    @FXML private ImageView imgUserAvatar;
-    @FXML public Button btnThemeToggle;
-    @FXML public ImageView iconTheme;
+    @FXML
+    private Label lblPageTitle;
+    @FXML
+    private Label lblUserName;
+    @FXML
+    private ImageView imgUserAvatar;
+    @FXML
+    public Button btnThemeToggle;
+    @FXML
+    public ImageView iconTheme;
 
     // --- BIẾN CHO THÔNG BÁO ---
-    @FXML private ImageView iconBell;      // Cái chuông (fx:id="iconBell" bên FXML)
-    @FXML private Label lblUnreadCount;    // Chấm đỏ (fx:id="lblUnreadCount" bên FXML)
+    @FXML
+    private ImageView iconBell; // Cái chuông (fx:id="iconBell" bên FXML)
+    @FXML
+    private Label lblUnreadCount; // Chấm đỏ (fx:id="lblUnreadCount" bên FXML)
 
     private NotificationDao notiDao = new NotificationDao();
     private ContextMenu notiMenu; // Menu thả xuống
@@ -45,11 +52,13 @@ public class HeaderController implements Initializable {
         // 1. Load thông tin User
         User user = UserSession.getInstance().getUser();
         if (user != null) {
-            if (lblUserName != null) lblUserName.setText(user.getFullname());
+            if (lblUserName != null)
+                lblUserName.setText(user.getFullname());
             try {
                 if (imgUserAvatar != null && user.getAvatarUrl() != null && !user.getAvatarUrl().isEmpty())
                     imgUserAvatar.setImage(new Image(user.getAvatarUrl(), 36, 36, true, true));
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
 
         updateThemeIcon();
@@ -82,7 +91,8 @@ public class HeaderController implements Initializable {
 
     private void updateUnreadCount() {
         User user = UserSession.getInstance().getUser();
-        if (user == null) return;
+        if (user == null)
+            return;
 
         new Thread(() -> {
             int count = notiDao.countUnread(user.getId());
@@ -102,7 +112,8 @@ public class HeaderController implements Initializable {
     // --- LOGIC 2: HIỂN THỊ POPUP THÔNG BÁO (QUAN TRỌNG NHẤT) ---
     private void handleShowNotifications() {
         User user = UserSession.getInstance().getUser();
-        if (user == null) return;
+        if (user == null)
+            return;
 
         // Xóa menu cũ để vẽ lại từ đầu
         notiMenu.getItems().clear();
@@ -179,8 +190,10 @@ public class HeaderController implements Initializable {
 
         // 1. Icon bên trái (Dựa trên loại thông báo)
         String iconText = "ℹ️"; // Mặc định
-        if ("SUCCESS".equals(n.getType())) iconText = "✅";
-        else if ("WARNING".equals(n.getType())) iconText = "⚠️";
+        if ("SUCCESS".equals(n.getType()))
+            iconText = "✅";
+        else if ("WARNING".equals(n.getType()))
+            iconText = "⚠️";
 
         Label lblIcon = new Label(iconText);
         lblIcon.setStyle("-fx-font-size: 18px;"); // Icon to rõ
@@ -215,7 +228,10 @@ public class HeaderController implements Initializable {
     }
 
     // --- CÁC HÀM CŨ (THEME) GIỮ NGUYÊN ---
-    public void setTitle(String title) { if (lblPageTitle != null) lblPageTitle.setText(title); }
+    public void setTitle(String title) {
+        if (lblPageTitle != null)
+            lblPageTitle.setText(title);
+    }
 
     public void showThemeButton(boolean show) {
         if (btnThemeToggle != null) {
@@ -225,7 +241,8 @@ public class HeaderController implements Initializable {
     }
 
     private void toggleTheme() {
-        if (lblPageTitle == null || lblPageTitle.getScene() == null) return;
+        if (lblPageTitle == null || lblPageTitle.getScene() == null)
+            return;
         Parent root = lblPageTitle.getScene().getRoot();
 
         FadeTransition fadeOut = new FadeTransition(Duration.millis(200), root);
@@ -247,12 +264,24 @@ public class HeaderController implements Initializable {
     }
 
     private void updateThemeIcon() {
-        if (iconTheme == null) return;
-        String iconUrl = ThemeManager.isDarkMode()
-                ? "https://img.icons8.com/ios-glyphs/30/ffffff/sun--v1.png"
-                : "https://img.icons8.com/ios-glyphs/30/000000/moon-symbol.png";
-        try {
-            iconTheme.setImage(new Image(iconUrl));
-        } catch (Exception e) {}
+        if (iconTheme != null) {
+            String iconUrl = ThemeManager.isDarkMode()
+                    ? "https://img.icons8.com/ios-glyphs/30/ffffff/sun--v1.png"
+                    : "https://img.icons8.com/ios-glyphs/30/000000/moon-symbol.png";
+            try {
+                iconTheme.setImage(new Image(iconUrl));
+            } catch (Exception e) {
+            }
+        }
+
+        if (iconBell != null) {
+            String bellUrl = ThemeManager.isDarkMode()
+                    ? "https://img.icons8.com/ios-filled/50/ffffff/bell.png"
+                    : "https://img.icons8.com/ios-filled/50/334155/bell.png";
+            try {
+                iconBell.setImage(new Image(bellUrl));
+            } catch (Exception e) {
+            }
+        }
     }
 }

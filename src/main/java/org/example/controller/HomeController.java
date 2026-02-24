@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -34,16 +35,24 @@ import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
 
-    @FXML private Label lblWelcome;
-    @FXML private HBox newsContainer;
-    @FXML private VBox chatContainer;
-    @FXML private TextField txtChatInput;
-    @FXML private ScrollPane chatScrollPane;
-    @FXML private Label lblOnlineCount;
-    @FXML private ScrollPane mainScrollPane;
+    @FXML
+    private Label lblWelcome;
+    @FXML
+    private FlowPane newsContainer;
+    @FXML
+    private VBox chatContainer;
+    @FXML
+    private TextField txtChatInput;
+    @FXML
+    private ScrollPane chatScrollPane;
+    @FXML
+    private Label lblOnlineCount;
+    @FXML
+    private ScrollPane mainScrollPane;
 
     // Header Controller để điều khiển Theme
-    @FXML private HeaderController headerController;
+    @FXML
+    private HeaderController headerController;
 
     private HomeDao homeDao = new HomeDao();
     private Timeline chatUpdater;
@@ -65,7 +74,8 @@ public class HomeController implements Initializable {
             // Nếu đã có Scene -> Áp dụng theme ngay
             ThemeManager.applyTheme(mainScrollPane.getScene().getRoot());
         } else {
-            // Nếu chưa có Scene (lần đầu mở) -> Lắng nghe sự kiện khi nào gắn xong thì áp dụng
+            // Nếu chưa có Scene (lần đầu mở) -> Lắng nghe sự kiện khi nào gắn xong thì áp
+            // dụng
             mainScrollPane.sceneProperty().addListener((obs, oldScene, newScene) -> {
                 if (newScene != null) {
                     // Dùng Platform.runLater để đảm bảo giao diện đã vẽ xong mới đổi màu
@@ -110,7 +120,6 @@ public class HomeController implements Initializable {
                 newsContainer.getChildren().clear();
                 for (Article a : articles) {
                     VBox card = createNewsCard(a);
-                    HBox.setHgrow(card, Priority.ALWAYS);
                     newsContainer.getChildren().add(card);
                 }
             });
@@ -123,14 +132,19 @@ public class HomeController implements Initializable {
         card.setSpacing(8);
         card.setPrefWidth(300);
 
+        // Bật Cache để giảm lag khi cuộn
+        card.setCache(true);
+        card.setCacheHint(javafx.scene.CacheHint.SPEED);
+
         // Ảnh tin tức
         ImageView img = new ImageView();
         try {
             String url = (a.getImageUrl() != null && !a.getImageUrl().isEmpty())
                     ? a.getImageUrl()
                     : "https://via.placeholder.com/350x180";
-            img.setImage(new Image(url, 350, 180, false, true));
-        } catch (Exception e) {}
+            img.setImage(new Image(url, 350, 180, false, true, true)); // Thêm true ở cuối để tải ảnh ngầm
+        } catch (Exception e) {
+        }
 
         img.setFitHeight(180);
         img.setFitWidth(350);
@@ -138,7 +152,8 @@ public class HomeController implements Initializable {
 
         // Bo góc ảnh
         javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(350, 180);
-        clip.setArcWidth(12); clip.setArcHeight(12);
+        clip.setArcWidth(12);
+        clip.setArcHeight(12);
         img.setClip(clip);
 
         // Nội dung
@@ -166,7 +181,8 @@ public class HomeController implements Initializable {
 
     // --- XỬ LÝ CHAT (ĐÃ SỬA ĐỂ KHỚP VỚI CSS MỚI) ---
     private void startChatPolling() {
-        if (chatUpdater != null) chatUpdater.stop();
+        if (chatUpdater != null)
+            chatUpdater.stop();
 
         chatUpdater = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
             loadChatMessages();
@@ -178,7 +194,8 @@ public class HomeController implements Initializable {
 
     private void loadChatMessages() {
         User currentUser = UserSession.getInstance().getUser();
-        if (currentUser == null) return;
+        if (currentUser == null)
+            return;
 
         new Thread(() -> {
             List<ChatMessage> messages = homeDao.getRecentMessages(currentUser.getId());
@@ -229,8 +246,9 @@ public class HomeController implements Initializable {
                 String url = (msg.getSenderAvatar() == null || msg.getSenderAvatar().isEmpty())
                         ? "https://ui-avatars.com/api/?name=" + msg.getSenderName().replaceAll(" ", "+")
                         : msg.getSenderAvatar();
-                avatar.setImage(new Image(url, 32, 32, true, true));
-            } catch (Exception e) {}
+                avatar.setImage(new Image(url, 32, 32, true, true, true)); // Bật tải ảnh ngầm
+            } catch (Exception e) {
+            }
 
             Circle clip = new Circle(16, 16, 16);
             avatar.setClip(clip);
@@ -257,7 +275,8 @@ public class HomeController implements Initializable {
     @FXML
     void handleSendMessage(ActionEvent event) {
         String msgText = txtChatInput.getText().trim();
-        if (msgText.isEmpty()) return;
+        if (msgText.isEmpty())
+            return;
 
         User currentUser = UserSession.getInstance().getUser();
         // Gửi tin nhắn xuống database
@@ -275,7 +294,8 @@ public class HomeController implements Initializable {
         new Thread(() -> {
             int count = homeDao.countOnlineUsers();
             Platform.runLater(() -> {
-                if (lblOnlineCount != null) lblOnlineCount.setText(count + " người đang online");
+                if (lblOnlineCount != null)
+                    lblOnlineCount.setText(count + " người đang online");
             });
         }).start();
     }
@@ -328,6 +348,7 @@ public class HomeController implements Initializable {
     }
 
     public void stopPolling() {
-        if (chatUpdater != null) chatUpdater.stop();
+        if (chatUpdater != null)
+            chatUpdater.stop();
     }
 }

@@ -4,10 +4,38 @@
 .root {
     -fx-font-family: "Segoe UI", "Inter", sans-serif;
     -fx-background-color: #F8FAFC; /* Nền sáng (Light Mode) */
+    /* Hỗ trợ khử răng cưa cho text sắc nét hơn */
+    -fx-font-smoothing-type: lcd; 
 }
 
+/* ================================================================= */
+/* 2. CUSTOM SCROLLBAR (GIỐNG MACOS)                                 */
+/* ================================================================= */
 .scroll-pane, .scroll-pane > .viewport {
     -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+    -fx-pref-height: 8px;
+}
+.scroll-bar:vertical .track, .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.scroll-bar:vertical .thumb, .scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(148, 163, 184, 0.3);
+    -fx-background-radius: 4px;
+}
+.scroll-bar:vertical .thumb:hover, .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: rgba(148, 163, 184, 0.7);
+}
+/* Ẩn nút mũi tên của scrollbar */
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
 }
 
 /* --- Typography Mặc định (Light Mode) --- */
@@ -15,6 +43,10 @@
     -fx-font-size: 24px;
     -fx-font-weight: 800;
     -fx-text-fill: #0F172A; /* Đen đậm */
+}
+.course-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
 }
 
 .text, .label, .lesson-title { -fx-text-fill: #334155; }
@@ -29,31 +61,37 @@
 }
 
 /* ================================================================= */
-/* 2. HEADER & SEARCH BAR (FIX LỖI VIỀN ĐEN/TRẮNG)                   */
+/* 2. HEADER & SEARCH BAR (PREMIUM LOOK)                             */
 /* ================================================================= */
 .global-header {
-    -fx-background-color: rgba(255, 255, 255, 0.95);
-    -fx-effect: dropshadow(three-pass-box, rgba(148, 163, 184, 0.15), 15, 0, 0, 4);
+    -fx-background-color: rgba(255, 255, 255, 0.90);
+    /* Soft shadow để cảm giác kính mờ */
+    -fx-effect: dropshadow(gaussian, rgba(148, 163, 184, 0.08), 20, 0, 0, 4);
     -fx-padding: 15 30;
-    -fx-border-color: transparent transparent #E2E8F0 transparent;
+    -fx-border-color: transparent transparent #F1F5F9 transparent;
     -fx-border-width: 1;
 }
 
-/* Khung bao ngoài của ô tìm kiếm (Bo tròn) */
+/* Khung bao ngoài của ô tìm kiếm */
 .chat-input-area-big {
-    -fx-background-color: #F1F5F9;
-    -fx-background-radius: 25; /* Bo tròn nhiều hơn */
-    -fx-border-radius: 25;
-    -fx-padding: 5 15;
+    -fx-background-color: #F8FAFC;
+    -fx-background-radius: 20; 
+    -fx-border-radius: 20;
+    -fx-padding: 8 18;
     -fx-border-color: #E2E8F0;
     -fx-border-width: 1;
+    -fx-transition: all 0.2s;
+}
+.chat-input-area-big:hover {
+    -fx-border-color: #CBD5E1;
+    -fx-background-color: #FFFFFF;
 }
 
-/* Ô nhập liệu bên trong (XÓA SẠCH VIỀN) */
+/* Ô nhập liệu bên trong */
 .header-search-field,
 .header-search-field:focused {
     -fx-background-color: transparent;
-    -fx-background-insets: 0; /* Quan trọng: Xóa viền focus mặc định */
+    -fx-background-insets: 0; 
     -fx-border-width: 0;
     -fx-text-fill: #0F172A;
     -fx-prompt-text-fill: #94A3B8;
@@ -66,31 +104,32 @@
 
 /* --- Nút Chính (Xanh dương) --- */
 .btn-hero-primary, .btn-buy-now {
-    -fx-background-color: #3B82F6;
+    -fx-background-color: linear-gradient(to right, #3B82F6, #2563EB);
     -fx-text-fill: white;
     -fx-font-weight: 800;
     -fx-background-radius: 12;
-    -fx-padding: 10 24;
+    -fx-padding: 12 24;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.3), 10, 0, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.25), 10, 0, 0, 4);
 }
 .btn-hero-primary:hover, .btn-buy-now:hover {
-    -fx-background-color: #2563EB;
-    -fx-translate-y: -2;
+    -fx-background-color: linear-gradient(to right, #4F46E5, #3B82F6);
+    -fx-translate-y: -1;
+    -fx-effect: dropshadow(gaussian, rgba(59, 130, 246, 0.4), 15, 0, 0, 6);
 }
 
-/* --- Nút Quay Lại (FIX LỖI DARK MODE) --- */
+/* --- Nút Quay Lại --- */
 .btn-back-stylish {
-    -fx-background-color: white;
-    -fx-text-fill: #64748B;
-    -fx-font-weight: bold;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #475569;
+    -fx-font-weight: 600;
     -fx-font-size: 13px;
     -fx-background-radius: 20;
     -fx-border-color: #E2E8F0;
     -fx-border-radius: 20;
     -fx-padding: 8 20;
     -fx-cursor: hand;
-    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.02), 5, 0, 0, 2);
 }
 .btn-back-stylish:hover {
     -fx-background-color: #F8FAFC;
@@ -101,41 +140,54 @@
 /* --- Nút Sidebar --- */
 .nav-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: #94A3B8;
+    -fx-text-fill: #64748B;
     -fx-font-size: 15px;
-    -fx-font-weight: bold;
+    -fx-font-weight: 600;
     -fx-padding: 12 25;
     -fx-cursor: hand;
-    -fx-background-radius: 0 30 30 0;
+    -fx-background-radius: 8;
     -fx-alignment: BASELINE_LEFT;
 }
 .nav-btn:hover {
-    -fx-background-color: rgba(255,255,255,0.05);
-    -fx-text-fill: white;
+    -fx-background-color: rgba(59, 130, 246, 0.05); /* Hover xanh biển rất mờ */
+    -fx-text-fill: #3B82F6;
 }
 .nav-btn-active {
-    -fx-background-color: rgba(59, 130, 246, 0.1); /* Nền xanh mờ */
-    -fx-text-fill: #60A5FA; /* Chữ xanh sáng */
+    -fx-background-color: rgba(59, 130, 246, 0.1); 
+    -fx-text-fill: #2563EB; 
+    -fx-font-weight: 800;
     -fx-border-color: #3B82F6;
-    -fx-border-width: 0 0 0 4;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 2;
 }
 
 /* ================================================================= */
-/* 4. CARDS & CONTAINERS                                             */
+/* 4. CARDS & CONTAINERS (PREMIUM & OPTIMIZED)                       */
 /* ================================================================= */
+/* Nhẹ shadow lại để giảm lag CPU */
 .content-card, .news-card-vertical, .course-card {
     -fx-background-color: #FFFFFF;
     -fx-background-radius: 16;
-    -fx-effect: dropshadow(three-pass-box, rgba(148, 163, 184, 0.1), 20, 0, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.04), 15, 0, 0, 6);
     -fx-border-color: #F1F5F9;
     -fx-border-radius: 16;
-    -fx-transition: all 0.3s;
+    -fx-border-width: 1;
 }
 
 .news-card-vertical:hover, .course-card:hover {
-    -fx-translate-y: -5;
-    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.25), 30, 0, 0, 10);
+    -fx-translate-y: -3;
+    /* Bóng đổ sáng hơn một chút khi hover */
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.08), 20, 0, 0, 8);
     -fx-cursor: hand;
+}
+
+.course-category {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3B82F6;
+    -fx-padding: 4 8;
+    -fx-background-color: #EFF6FF;
+    -fx-background-radius: 20;
 }
 
 /* ================================================================= */
@@ -143,12 +195,12 @@
 /* ================================================================= */
 .progress-bar { -fx-min-height: 8px; -fx-pref-height: 8px; }
 .progress-bar > .track {
-    -fx-background-color: #E2E8F0;
+    -fx-background-color: #F1F5F9;
     -fx-background-radius: 10;
     -fx-background-insets: 0;
 }
 .progress-bar > .bar {
-    -fx-background-color: linear-gradient(to right, #3B82F6, #60A5FA);
+    -fx-background-color: linear-gradient(to right, #3B82F6, #10B981); /* Gradient xanh lam tới ngọc lục bảo */
     -fx-background-radius: 10;
     -fx-background-insets: 0;
     -fx-padding: 4;
@@ -158,24 +210,30 @@
 /* 6. ACCORDION (DANH SÁCH BÀI HỌC)                                  */
 /* ================================================================= */
 .course-section-pane > .title {
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
     -fx-border-color: #E2E8F0;
+    -fx-border-width: 0 0 1 0;
     -fx-text-fill: #0F172A;
     -fx-cursor: hand;
+    -fx-padding: 12 15;
+}
+.course-section-pane > .title:hover {
+    -fx-background-color: #F8FAFC;
 }
 .course-section-pane > .content {
-    -fx-background-color: #F8FAFC;
-    -fx-border-color: #E2E8F0;
+    -fx-background-color: #FAFAF9;
+    -fx-border-color: transparent;
 }
 .lesson-item:hover {
-    -fx-background-color: #EFF6FF; /* Xanh nhạt khi hover bài học */
+    -fx-background-color: #EFF6FF;
+    -fx-cursor: hand;
 }
 
 /* ================================================================= */
-/* 7. DARK MODE OVERRIDES (CHẾ ĐỘ TỐI - FIX TOÀN BỘ)                 */
+/* 7. DARK MODE OVERRIDES (CHẾ ĐỘ TỐI - MÀU SANG TRỌNG)              */
 /* ================================================================= */
 .dark-theme {
-    -fx-background-color: #0F172A; /* Nền tối (Slate 900) */
+    -fx-background-color: #0B0F19; /* Nền tối đậm rất sang, không bị xám xịt */
 }
 
 /* --- Dark Typography --- */
@@ -193,12 +251,17 @@
 
 /* --- Dark Header & Search --- */
 .dark-theme .global-header {
-    -fx-background-color: #1E293B;
-    -fx-border-color: transparent transparent #334155 transparent;
+    -fx-background-color: rgba(15, 23, 42, 0.95);
+    -fx-border-color: transparent transparent #1E293B transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 15, 0, 0, 4);
 }
 .dark-theme .chat-input-area-big {
-    -fx-background-color: #0F172A;
+    -fx-background-color: #1E293B;
     -fx-border-color: #334155;
+}
+.dark-theme .chat-input-area-big:hover {
+    -fx-background-color: #26334D;
+    -fx-border-color: #475569;
 }
 .dark-theme .header-search-field,
 .dark-theme .header-search-field:focused {
@@ -206,53 +269,80 @@
     -fx-prompt-text-fill: #64748B;
 }
 
-/* --- Dark Buttons (FIX NÚT BACK) --- */
+/* --- Scrollbar Dark Mode --- */
+.dark-theme .scroll-bar:vertical .thumb, .dark-theme .scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+}
+.dark-theme .scroll-bar:vertical .thumb:hover, .dark-theme .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* --- Dark Sidebar Buttons --- */
+.dark-theme .nav-btn {
+    -fx-text-fill: #94A3B8;
+}
+.dark-theme .nav-btn:hover {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-text-fill: #E2E8F0;
+}
+.dark-theme .nav-btn-active {
+    -fx-background-color: rgba(96, 165, 250, 0.1); 
+    -fx-text-fill: #60A5FA; 
+}
+
+
+/* --- Dark Buttons --- */
 .dark-theme .btn-back-stylish {
-    -fx-background-color: #1E293B; /* Nền tối */
-    -fx-text-fill: #94A3B8;        /* Chữ xám */
-    -fx-border-color: #334155;     /* Viền tối */
+    -fx-background-color: #1E293B;
+    -fx-text-fill: #94A3B8;       
+    -fx-border-color: #334155;    
 }
 .dark-theme .btn-back-stylish:hover {
-    -fx-background-color: #334155; /* Sáng hơn khi hover */
-    -fx-text-fill: white;          /* Chữ trắng khi hover */
+    -fx-background-color: #334155;
+    -fx-text-fill: white;         
 }
 
 /* --- Dark Cards --- */
 .dark-theme .content-card,
 .dark-theme .news-card-vertical,
 .dark-theme .course-card {
-    -fx-background-color: #1E293B;
-    -fx-border-color: #334155;
+    -fx-background-color: #1A2235; /* Card xanh đen rất sang */
+    -fx-border-color: #2A3447;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 5);
 }
 .dark-theme .news-card-vertical:hover, .dark-theme .course-card:hover {
     -fx-border-color: #38BDF8; /* Viền sáng khi hover */
-    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.3), 30, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.15), 25, 0, 0, 0);
+}
+
+.dark-theme .course-category {
+    -fx-background-color: rgba(59, 130, 246, 0.2);
+    -fx-text-fill: #60A5FA;
 }
 
 /* --- Dark Accordion (Bài học) --- */
 .dark-theme .course-section-pane > .title {
-    -fx-background-color: #334155;
-    -fx-border-color: #475569;
+    -fx-background-color: #1E293B;
+    -fx-border-color: #334155;
 }
 .dark-theme .course-section-pane > .title .text {
-    -fx-fill: #F8FAFC !important; /* Ép chữ tiêu đề màu trắng */
+    -fx-fill: #F8FAFC !important;
 }
 .dark-theme .course-section-pane > .content {
-    -fx-background-color: #0F172A;
-    -fx-border-color: #475569;
+    -fx-background-color: #0B0F19;
+    -fx-border-color: transparent;
 }
 .dark-theme .lesson-title {
     -fx-text-fill: #CBD5E1;
 }
 .dark-theme .lesson-item:hover {
-    -fx-background-color: #1E293B;
+    -fx-background-color: #1A2235;
 }
 
 /* --- Dark Progress Bar --- */
-.dark-theme .progress-bar > .track { -fx-background-color: #334155; }
+.dark-theme .progress-bar > .track { -fx-background-color: #1E293B; }
 .dark-theme .progress-bar > .bar {
-    -fx-background-color: linear-gradient(to right, #3B82F6, #93C5FD);
-    -fx-effect: dropshadow(three-pass-box, rgba(96, 165, 250, 0.5), 10, 0, 0, 0);
+    -fx-background-color: linear-gradient(to right, #3B82F6, #34D399);
 }
 /* --- Sidebar Logo (EduPath) --- */
 .logo-label {
@@ -261,7 +351,7 @@
     -fx-font-family: "Segoe UI Black", "Arial Black", sans-serif;
     -fx-text-fill: #FFFFFF; /* Màu trắng tinh */
     /* Hiệu ứng đổ bóng phát sáng màu xanh (Neon Glow) */
-    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.6), 15, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(56, 189, 248, 0.6), 15, 0, 0, 0);
 }
 
 /* --- Sidebar Subtitle (System) --- */
@@ -309,40 +399,37 @@
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2); /* Bóng thu nhỏ lại */
 }
 /* ================================================================= */
-/* 🔔 NOTIFICATION POPUP (THÔNG BÁO)                                 */
+/* 🔔 NOTIFICATION POPUP (PREMIUM DESIGN)                            */
 /* ================================================================= */
 
-/* 1. Cái khung chứa (ContextMenu) */
 .notification-context-menu {
-    -fx-background-color: transparent; /* Để background do VBox bên trong quản lý */
-    -fx-padding: 5; /* Để chừa chỗ cho bóng đổ */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 2, 5);
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 25, 0, 0, 10);
 }
 
-/* 2. Container chính */
 .notification-container {
-    -fx-background-color: white;
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 12;
     -fx-border-radius: 12;
+    -fx-border-color: #E2E8F0;
     -fx-min-width: 320px;
     -fx-max-width: 320px;
 }
 
-/* 3. Header (Tiêu đề "Thông báo") */
 .notification-header {
-    /* Gradient xanh giống nút Hero */
-    -fx-background-color: linear-gradient(to right, #3B82F6, #2563EB);
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: transparent transparent #F1F5F9 transparent;
     -fx-background-radius: 12 12 0 0;
-    -fx-padding: 12 15;
+    -fx-padding: 14 15;
 }
 
 .notification-header-label {
-    -fx-text-fill: white;
+    -fx-text-fill: #0F172A;
     -fx-font-weight: 800;
     -fx-font-size: 14px;
 }
 
-/* 4. Từng dòng thông báo (Item) */
 .notification-item {
     -fx-background-color: transparent;
     -fx-padding: 12 15;
@@ -352,10 +439,9 @@
 }
 
 .notification-item:hover {
-    -fx-background-color: #F8FAFC; /* Màu nền khi di chuột */
+    -fx-background-color: #F1F5F9; 
 }
 
-/* Nội dung text bên trong */
 .notif-title {
     -fx-font-weight: bold;
     -fx-font-size: 13px;
@@ -364,7 +450,7 @@
 
 .notif-msg {
     -fx-font-size: 12px;
-    -fx-text-fill: #475569;
+    -fx-text-fill: #64748B;
     -fx-wrap-text: true;
 }
 
@@ -373,17 +459,16 @@
     -fx-text-fill: #94A3B8;
 }
 
-/* Icon trạng thái (Check xanh, Info đỏ...) */
 .notif-icon-box {
     -fx-alignment: top-center;
     -fx-padding: 2 0 0 0;
 }
 
-/* 5. Footer (Đánh dấu đã đọc) */
 .notification-footer {
     -fx-padding: 10;
     -fx-alignment: center;
     -fx-background-radius: 0 0 12 12;
+    -fx-background-color: #FAFAF9;
 }
 
 .btn-mark-read {
@@ -402,20 +487,32 @@
 /* 🌙 DARK MODE NOTIFICATION                                         */
 /* ================================================================= */
 
+.dark-theme .notification-context-menu {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 30, 0, 0, 15);
+}
+
 .dark-theme .notification-container {
-    -fx-background-color: #2D3748; /* Nền tối */
-    -fx-border-color: #4A5568;
-    -fx-border-width: 1;
+    -fx-background-color: #1A2235;
+    -fx-border-color: #334155;
+}
+
+.dark-theme .notification-header {
+    -fx-background-color: #1E293B;
+    -fx-border-color: transparent transparent #334155 transparent;
+}
+.dark-theme .notification-header-label {
+    -fx-text-fill: #F8FAFC;
 }
 
 .dark-theme .notification-item {
-    -fx-border-color: transparent transparent #4A5568 transparent;
+    -fx-border-color: transparent transparent #2A3447 transparent;
 }
 
 .dark-theme .notification-item:hover {
-    -fx-background-color: #353F50;
+    -fx-background-color: #2A3447;
 }
 
 .dark-theme .notif-title { -fx-text-fill: #F8FAFC; }
-.dark-theme .notif-msg { -fx-text-fill: #CBD5E0; }
-.dark-theme .notif-time { -fx-text-fill: #718096; }
+.dark-theme .notif-msg { -fx-text-fill: #94A3B8; }
+.dark-theme .notif-time { -fx-text-fill: #64748B; }
+.dark-theme .notification-footer { -fx-background-color: #1E293B; }
