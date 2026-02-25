@@ -14,26 +14,41 @@ import org.example.model.User;
 import org.example.util.UserSession;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
 
-    @FXML private TextField txtFullName;
-    @FXML private TextField txtEmail;
-    @FXML private ImageView avatarPreview;
-    @FXML private Button btnUploadAvatar;
-    @FXML private ScrollPane settingsScrollPane;
+    @FXML
+    private TextField txtFullName;
+    @FXML
+    private TextField txtEmail;
+    @FXML
+    private ImageView avatarPreview;
+    @FXML
+    private Button btnUploadAvatar;
+    @FXML
+    private ScrollPane settingsScrollPane;
 
-    @FXML private PasswordField txtCurrentPass;
-    @FXML private PasswordField txtNewPass;
-    @FXML private PasswordField txtConfirmPass;
+    @FXML
+    private PasswordField txtCurrentPass;
+    @FXML
+    private PasswordField txtNewPass;
+    @FXML
+    private PasswordField txtConfirmPass;
 
-    @FXML private Label lblProfileMessage;
-    @FXML private Label lblPasswordMessage;
+    @FXML
+    private Label lblProfileMessage;
+    @FXML
+    private Label lblPasswordMessage;
 
     private UserDao userDao = new UserDao();
     private String currentAvatarUrl = "";
+    private File selectedAvatarFile = null;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,14 +64,20 @@ public class SettingsController implements Initializable {
         User user = UserSession.getInstance().getUser();
         if (user != null) {
             // Cập nhật tên biến mới
-            if (txtFullName != null) txtFullName.setText(user.getFullname());
-            if (txtEmail != null) txtEmail.setText(user.getEmail());
+            if (txtFullName != null)
+                txtFullName.setText(user.getFullname());
+            if (txtEmail != null)
+                txtEmail.setText(user.getEmail());
 
             currentAvatarUrl = user.getAvatarUrl();
 
             try {
                 if (currentAvatarUrl != null && !currentAvatarUrl.isEmpty()) {
-                    avatarPreview.setImage(new Image(currentAvatarUrl, 120, 120, true, true));
+                    String loadedUrl = currentAvatarUrl;
+                    if (loadedUrl.startsWith("/userAvatar/")) {
+                        loadedUrl = new File("src/main/resources" + loadedUrl).toURI().toString();
+                    }
+                    avatarPreview.setImage(new Image(loadedUrl, 120, 120, true, true));
                 } else {
                     // Ảnh mặc định nếu chưa có
                     avatarPreview.setImage(new Image("https://i.pravatar.cc/150?img=12", 120, 120, true, true));
@@ -71,13 +92,13 @@ public class SettingsController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Chọn ảnh đại diện");
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
-        );
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
 
         Stage stage = (Stage) txtFullName.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
+            selectedAvatarFile = selectedFile;
             currentAvatarUrl = selectedFile.toURI().toString();
             avatarPreview.setImage(new Image(currentAvatarUrl, 120, 120, true, true));
         }
@@ -94,12 +115,33 @@ public class SettingsController implements Initializable {
 
         User currentUser = UserSession.getInstance().getUser();
 
+        // Xử lý lưu file ảnh nếu có thay đổi
+        if (selectedAvatarFile != null) {
+            String uploadDir = "src/main/resources/userAvatar";
+            try {
+                Path uploadPath = Paths.get(uploadDir);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+                String fileName = currentUser.getId() + ".jpg";
+                Path targetPath = uploadPath.resolve(fileName);
+
+                Files.copy(selectedAvatarFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+                currentAvatarUrl = "/userAvatar/" + fileName;
+            } catch (Exception e) {
+                e.printStackTrace();
+                setProfileMessage("Lỗi khi lưu ảnh đại diện.", true);
+                return;
+            }
+        }
+
         // Giả sử hàm updateProfile của anh nhận (id, name, avatar)
         boolean success = userDao.updateProfile(currentUser.getId(), newName, currentAvatarUrl);
 
         if (success) {
             currentUser.setFullname(newName);
             currentUser.setAvatarUrl(currentAvatarUrl);
+            selectedAvatarFile = null; // Reset form trạng thái file
             setProfileMessage("Cập nhật thông tin thành công!", false);
         } else {
             setProfileMessage("Lỗi kết nối CSDL, không thể lưu.", true);

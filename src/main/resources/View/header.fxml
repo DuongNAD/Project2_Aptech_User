@@ -20,9 +20,7 @@
         <Region HBox.hgrow="ALWAYS" />
 
         <HBox alignment="CENTER_LEFT" styleClass="chat-input-area-big" style="-fx-padding: 5 15; -fx-background-radius: 20; -fx-border-radius: 20;">
-            <Label styleClass="text-description" style="-fx-font-size: 14px; -fx-padding: 0 5 0 0;" text="🔍" />
-
-            <TextField promptText="Tìm kiếm..." styleClass="header-search-field" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="txtSearch" promptText="Tìm kiếm khóa học..." styleClass="header-search-field" HBox.hgrow="ALWAYS" onAction="#handleSearch" />
         </HBox>
 
         <Button fx:id="btnThemeToggle" visible="false" managed="false" style="-fx-background-color: transparent; -fx-cursor: hand;">

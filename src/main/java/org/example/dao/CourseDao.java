@@ -24,8 +24,8 @@ public class CourseDao {
                 "WHERE c.status = 'active'";
 
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 list.add(mapCourse(rs));
@@ -43,11 +43,33 @@ public class CourseDao {
                 : "SELECT c.*, cat.name AS category_name FROM courses c LEFT JOIN categories cat ON c.category_id = cat.category_id WHERE c.category_id = ? ORDER BY c.view_count DESC";
 
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             if (categoryId != 0) {
                 stmt.setInt(1, categoryId);
             }
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                list.add(mapCourse(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<Course> searchCoursesByName(String query) {
+        List<Course> list = new ArrayList<>();
+        String sql = "SELECT c.*, cat.name AS category_name " +
+                "FROM courses c " +
+                "LEFT JOIN categories cat ON c.category_id = cat.category_id " +
+                "WHERE c.status = 'active' AND c.title LIKE ?";
+
+        try (Connection conn = DatabaseConnect.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, "%" + query + "%");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -64,7 +86,7 @@ public class CourseDao {
         String sql = "SELECT * FROM courses WHERE category_id = ?";
 
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, categoryId);
             ResultSet rs = stmt.executeQuery();
@@ -96,7 +118,7 @@ public class CourseDao {
                 "WHERE e.user_id = ?";
 
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -129,7 +151,8 @@ public class CourseDao {
         try {
             String catName = rs.getString("category_name");
             c.setCategoryName(catName != null ? catName : "Chưa phân loại");
-        } catch (SQLException ignored) {} // Bỏ qua nếu không có cột này
+        } catch (SQLException ignored) {
+        } // Bỏ qua nếu không có cột này
 
         if (c.getThumbnailUrl() == null || c.getThumbnailUrl().isEmpty()) {
             c.setThumbnailUrl(getClass().getResource("/Images/default.png").toExternalForm());
@@ -148,7 +171,7 @@ public class CourseDao {
                 "ORDER BY s.order_index, l.order_index";
 
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, courseId);
             ResultSet rs = stmt.executeQuery();
@@ -211,14 +234,15 @@ public class CourseDao {
         String sql = "SELECT * FROM coding_exercises WHERE course_id = ?";
 
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, courseId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 String lang = rs.getString("language");
-                if (lang == null || lang.isEmpty()) lang = "java";
+                if (lang == null || lang.isEmpty())
+                    lang = "java";
 
                 // Sử dụng Constructor đầy đủ (bao gồm course_id và language)
                 list.add(new CodingExercise(
@@ -228,8 +252,7 @@ public class CourseDao {
                         rs.getString("description"),
                         rs.getString("starter_code"),
                         rs.getString("expected_output"),
-                        lang
-                ));
+                        lang));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -242,7 +265,7 @@ public class CourseDao {
         String sql = "SELECT * FROM coding_exercises WHERE course_id = ? AND exercise_id > ? ORDER BY exercise_id ASC LIMIT 1";
 
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, currentCourseId);
             stmt.setInt(2, currentExerciseId);
@@ -250,7 +273,8 @@ public class CourseDao {
 
             if (rs.next()) {
                 String lang = rs.getString("language");
-                if (lang == null || lang.isEmpty()) lang = "java";
+                if (lang == null || lang.isEmpty())
+                    lang = "java";
 
                 return new CodingExercise(
                         rs.getInt("exercise_id"),
@@ -259,8 +283,7 @@ public class CourseDao {
                         rs.getString("description"),
                         rs.getString("starter_code"),
                         rs.getString("expected_output"),
-                        lang
-                );
+                        lang);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -294,7 +317,8 @@ public class CourseDao {
 
                 updateCourseProgress(conn, userId, courseId);
 
-                System.out.println(">>> User " + userId + ": Hoàn thành bài " + exerciseId + ", Cộng " + pointsToAdd + " điểm.");
+                System.out.println(
+                        ">>> User " + userId + ": Hoàn thành bài " + exerciseId + ", Cộng " + pointsToAdd + " điểm.");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -312,16 +336,19 @@ public class CourseDao {
         try (PreparedStatement psTotal = conn.prepareStatement(countTotalSql)) {
             psTotal.setInt(1, courseId);
             ResultSet rsTotal = psTotal.executeQuery();
-            if (rsTotal.next()) totalExercises = rsTotal.getInt(1);
+            if (rsTotal.next())
+                totalExercises = rsTotal.getInt(1);
         }
 
-        if (totalExercises == 0) return;
+        if (totalExercises == 0)
+            return;
 
         try (PreparedStatement psDone = conn.prepareStatement(countDoneSql)) {
             psDone.setInt(1, userId);
             psDone.setInt(2, courseId);
             ResultSet rsDone = psDone.executeQuery();
-            if (rsDone.next()) completedExercises = rsDone.getInt(1);
+            if (rsDone.next())
+                completedExercises = rsDone.getInt(1);
         }
 
         int percent = (int) (((double) completedExercises / totalExercises) * 100);
@@ -337,7 +364,7 @@ public class CourseDao {
     public org.example.model.Course getCourseById(int courseId) {
         String sql = "SELECT * FROM courses WHERE course_id = ?";
         try (java.sql.Connection conn = org.example.connect.DatabaseConnect.getConnection();
-             java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
+                java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, courseId);
             java.sql.ResultSet rs = stmt.executeQuery();
@@ -359,7 +386,7 @@ public class CourseDao {
     public void markLessonAsCompleted(int userId, int courseId, String lessonName) {
         String sql = "INSERT IGNORE INTO lesson_progress (user_id, course_id, lesson_name) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             stmt.setInt(2, courseId);
             stmt.setString(3, lessonName);
@@ -375,11 +402,12 @@ public class CourseDao {
     public int getCompletedLessonCount(int userId, int courseId) {
         String sql = "SELECT COUNT(*) FROM lesson_progress WHERE user_id = ? AND course_id = ?";
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             stmt.setInt(2, courseId);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) return rs.getInt(1);
+            if (rs.next())
+                return rs.getInt(1);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -396,13 +424,15 @@ public class CourseDao {
             try (PreparedStatement ps1 = conn.prepareStatement(sqlVideo)) {
                 ps1.setInt(1, courseId);
                 ResultSet rs1 = ps1.executeQuery();
-                if (rs1.next()) total += rs1.getInt(1);
+                if (rs1.next())
+                    total += rs1.getInt(1);
             }
             // Đếm bài code
             try (PreparedStatement ps2 = conn.prepareStatement(sqlCode)) {
                 ps2.setInt(1, courseId);
                 ResultSet rs2 = ps2.executeQuery();
-                if (rs2.next()) total += rs2.getInt(1);
+                if (rs2.next())
+                    total += rs2.getInt(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -414,14 +444,16 @@ public class CourseDao {
         int completed = getCompletedLessonCount(userId, courseId);
         int total = getTotalLessonCount(courseId);
 
-        if (total == 0) return;
+        if (total == 0)
+            return;
 
         int percent = (int) (((double) completed / total) * 100);
-        if (percent > 100) percent = 100;
+        if (percent > 100)
+            percent = 100;
 
         String sql = "UPDATE enrollments SET progress_percent = ? WHERE user_id = ? AND course_id = ?";
         try (Connection conn = DatabaseConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, percent);
             stmt.setInt(2, userId);
             stmt.setInt(3, courseId);

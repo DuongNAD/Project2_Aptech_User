@@ -56,6 +56,9 @@ public class RegisterController implements Initializable {
     private double startX;
     private double startY;
 
+    // --- MỚI: Biến lưu trữ file ảnh vừa chọn ---
+    private File selectedAvatarFile;
+
     private UserDao userDao = new UserDao();
     private EmailService emailService = new EmailService();
 
@@ -110,12 +113,12 @@ public class RegisterController implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Chọn ảnh đại diện");
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
-        );
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif"));
 
         File selectedFile = fileChooser.showOpenDialog(avatarContainer.getScene().getWindow());
 
         if (selectedFile != null) {
+            this.selectedAvatarFile = selectedFile;
             Image newImage = new Image(selectedFile.toURI().toString());
             avatarImageView.setImage(newImage);
             avatarImageView.setTranslateX(0);
@@ -133,7 +136,8 @@ public class RegisterController implements Initializable {
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        if (fullName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty() || confirmPassword.isEmpty()) {
+        if (fullName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || phone.isEmpty()
+                || confirmPassword.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Lỗi nhập liệu", "Vui lòng điền đầy đủ thông tin!");
             return;
         }
@@ -143,8 +147,9 @@ public class RegisterController implements Initializable {
             return;
         }
 
-        if(!isValidPhone(phone)) {
-            showAlert(Alert.AlertType.ERROR,"Lỗi số điện thoại", "Số điện thoại phải bắt đầu bằng số 0 và có 10 chữ số!");
+        if (!isValidPhone(phone)) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi số điện thoại",
+                    "Số điện thoại phải bắt đầu bằng số 0 và có 10 chữ số!");
             return;
         }
 
@@ -174,10 +179,10 @@ public class RegisterController implements Initializable {
         String otp = UserDao.generateOTP();
 
         new Thread(() -> {
-            String emailContent = emailService.getOtpEmailTemplate(newUser.getUsername(),otp);
-            emailService.sendEmail(email,"Xác thực tài khoản EduPath", emailContent);
+            String emailContent = emailService.getOtpEmailTemplate(newUser.getUsername(), otp);
+            emailService.sendEmail(email, "Xác thực tài khoản EduPath", emailContent);
         }).start();
-        switchScene(newUser,otp);
+        switchScene(newUser, otp);
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {
@@ -213,22 +218,24 @@ public class RegisterController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Không tìm thấy file: " + fxmlPath);
         }
     }
+
     private void switchScene(User user, String otp) {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/OTP.xml.fxml"));
             Parent root = loader.load();
 
             OtpController otpController = loader.getController();
             otpController.setData(user, otp);
+            otpController.setAvatarFile(selectedAvatarFile);
 
             Stage stage = (Stage) registerButton.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Xác thực OTP");
             stage.centerOnScreen();
             stage.show();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR,"Lỗi", "Không thể tải màn hình OTP.");
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tải màn hình OTP.");
         }
     }
 
@@ -236,6 +243,7 @@ public class RegisterController implements Initializable {
     public void onLoginLinkClick(ActionEvent actionEvent) {
         switchScene("/login.fxml", "Đăng Nhập");
     }
+
     @FXML
     public void onBackToLoginClick() {
         switchScene("/login.fxml", "Đăng Nhập");

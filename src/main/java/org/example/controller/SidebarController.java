@@ -40,8 +40,7 @@ public class SidebarController implements Initializable {
 
     private boolean isSidebarOpen = true;
 
-    // Biến này được HelloController truyền vào, nhưng Navigation tự lookup được
-    // nên ta giữ lại để tránh lỗi null bên HelloController thôi
+
     private StackPane mainContentArea;
 
     private final double OPEN_WIDTH = 260;

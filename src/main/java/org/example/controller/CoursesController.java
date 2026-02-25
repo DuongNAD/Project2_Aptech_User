@@ -142,6 +142,17 @@ public class CoursesController implements Initializable {
         new Thread(loadTask).start();
     }
 
+    public void searchCourses(String query) {
+        Task<List<Course>> loadTask = new Task<>() {
+            @Override
+            protected List<Course> call() throws Exception {
+                return courseDao.searchCoursesByName(query);
+            }
+        };
+        loadTask.setOnSucceeded(e -> renderCourses(loadTask.getValue()));
+        new Thread(loadTask).start();
+    }
+
     private void renderCourses(List<Course> courses) {
         coursesContainer.getChildren().clear();
         if (courses == null || courses.isEmpty()) {

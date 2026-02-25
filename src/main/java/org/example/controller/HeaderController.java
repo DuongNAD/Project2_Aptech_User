@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
@@ -37,6 +38,8 @@ public class HeaderController implements Initializable {
     public Button btnThemeToggle;
     @FXML
     public ImageView iconTheme;
+    @FXML
+    private TextField txtSearch;
 
     // --- BIẾN CHO THÔNG BÁO ---
     @FXML
@@ -55,8 +58,13 @@ public class HeaderController implements Initializable {
             if (lblUserName != null)
                 lblUserName.setText(user.getFullname());
             try {
-                if (imgUserAvatar != null && user.getAvatarUrl() != null && !user.getAvatarUrl().isEmpty())
-                    imgUserAvatar.setImage(new Image(user.getAvatarUrl(), 36, 36, true, true));
+                if (imgUserAvatar != null && user.getAvatarUrl() != null && !user.getAvatarUrl().isEmpty()) {
+                    String aUrl = user.getAvatarUrl();
+                    if (aUrl.startsWith("/userAvatar/")) {
+                        aUrl = new java.io.File("src/main/resources" + aUrl).toURI().toString();
+                    }
+                    imgUserAvatar.setImage(new Image(aUrl, 36, 36, true, true));
+                }
             } catch (Exception e) {
             }
         }
@@ -282,6 +290,36 @@ public class HeaderController implements Initializable {
                 iconBell.setImage(new Image(bellUrl));
             } catch (Exception e) {
             }
+        }
+    }
+
+    @FXML
+    public void handleSearch(javafx.event.ActionEvent event) {
+        if (txtSearch == null)
+            return;
+        String query = txtSearch.getText().trim();
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/courses.fxml"));
+            Parent view = loader.load();
+            CoursesController controller = loader.getController();
+
+            // Nếu ô tìm kiếm không trống thì fetch data theo query, ngược lại load all.
+            if (!query.isEmpty()) {
+                controller.searchCourses(query);
+            }
+
+            if (txtSearch.getScene() != null) {
+                javafx.scene.layout.StackPane contentArea = (javafx.scene.layout.StackPane) txtSearch.getScene()
+                        .lookup("#contentArea");
+                if (contentArea != null) {
+                    contentArea.getChildren().clear();
+                    contentArea.getChildren().add(view);
+                    ThemeManager.applyTheme(view);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

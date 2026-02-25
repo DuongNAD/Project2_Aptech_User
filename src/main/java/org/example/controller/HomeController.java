@@ -246,6 +246,9 @@ public class HomeController implements Initializable {
                 String url = (msg.getSenderAvatar() == null || msg.getSenderAvatar().isEmpty())
                         ? "https://ui-avatars.com/api/?name=" + msg.getSenderName().replaceAll(" ", "+")
                         : msg.getSenderAvatar();
+                if (url.startsWith("/userAvatar/")) {
+                    url = new java.io.File("src/main/resources" + url).toURI().toString();
+                }
                 avatar.setImage(new Image(url, 32, 32, true, true, true)); // Bật tải ảnh ngầm
             } catch (Exception e) {
             }

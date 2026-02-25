@@ -14,6 +14,12 @@ import org.example.dao.UserDao;
 import org.example.model.User;
 import org.example.service.EmailService;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.io.InputStream;
 import java.io.IOException;
 
 public class OtpController {
@@ -37,8 +43,13 @@ public class OtpController {
     private UserDao userDao = new UserDao();
     private EmailService emailService = new EmailService();
     private boolean isForgotPassword = false;
+    private File avatarFile;
 
-    public void setData(User user, String otp){
+    public void setAvatarFile(File file) {
+        this.avatarFile = file;
+    }
+
+    public void setData(User user, String otp) {
         this.pendingUser = user;
         this.serverOtp = otp;
         this.isForgotPassword = false;
@@ -53,7 +64,7 @@ public class OtpController {
         this.pendingUser = user;
         this.serverOtp = otp;
         this.isForgotPassword = true;
-        if(backButton != null) {
+        if (backButton != null) {
             backButton.setText("Quay lại Đăng nhập");
             backButton.setUnderline(true);
         }
@@ -65,7 +76,7 @@ public class OtpController {
         startCountdown();
     }
 
-    private void  startCountdown(){
+    private void startCountdown() {
         resendLink.setDisable(true);
         countdownTime = 60;
         resendLink.setText("Gửi lại (" + countdownTime + "s)");
@@ -80,6 +91,7 @@ public class OtpController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
+
     private void stopCountdown() {
         if (timeline != null) {
             timeline.stop();
@@ -98,16 +110,16 @@ public class OtpController {
         }
 
         if (inputOtp.equals(serverOtp)) {
-            if (timeline != null) timeline.stop();
+            if (timeline != null)
+                timeline.stop();
             if (isForgotPassword) {
                 showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xác thực thành công!");
                 switchToResetPassword();
-            }
-            else {
+            } else {
                 boolean isSuccess = userDao.register(pendingUser);
 
                 if (isSuccess) {
-
+                    saveUserAvatar(pendingUser.getEmail());
                     showAlert(Alert.AlertType.INFORMATION, "Thành công", "Xác thực thành công! Tài khoản đã được tạo.");
                     switchToLogin();
                 } else {
@@ -120,9 +132,9 @@ public class OtpController {
     }
 
     private void switchToResetPassword() {
-        try{
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/resetPassword.fxml"));
-            Parent root =loader.load();
+            Parent root = loader.load();
 
             ResetPasswordController controller = loader.getController();
             controller.setTargetUser(pendingUser);
@@ -132,8 +144,7 @@ public class OtpController {
             stage.setTitle("Reset Password");
             stage.setResizable(false);
             stage.show();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể tải màn hình đặt lại mật khẩu " + e.getMessage());
         }
@@ -156,9 +167,10 @@ public class OtpController {
 
     @FXML
     public void onBackClick() {
-        if (timeline != null) timeline.stop();
+        if (timeline != null)
+            timeline.stop();
 
-        if(isForgotPassword) {
+        if (isForgotPassword) {
             switchToLogin();
         }
 
@@ -185,6 +197,43 @@ public class OtpController {
         }
     }
 
+    private void saveUserAvatar(String email) {
+        User registeredUser = UserDao.getUserByEmail(email);
+        if (registeredUser == null)
+            return;
+
+        int userId = registeredUser.getId();
+        String uploadDir = "src/main/resources/userAvatar";
+
+        try {
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            String fileName = userId + ".jpg";
+            Path targetPath = uploadPath.resolve(fileName);
+
+            if (this.avatarFile != null) {
+                // Copy ảnh do user chọn
+                Files.copy(this.avatarFile.toPath(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+            } else {
+                // Copy ảnh default
+                InputStream defaultAvatarStream = getClass().getResourceAsStream("/avatar.jpg");
+                if (defaultAvatarStream != null) {
+                    Files.copy(defaultAvatarStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+
+            // Lưu đường dẫn tương đối vào database
+            String relativeUrl = "/userAvatar/" + fileName;
+            userDao.updateProfile(userId, registeredUser.getFullname(), relativeUrl);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -193,4 +242,3 @@ public class OtpController {
         alert.showAndWait();
     }
 }
-
