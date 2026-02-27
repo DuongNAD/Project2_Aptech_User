@@ -462,4 +462,36 @@ public class CourseDao {
             e.printStackTrace();
         }
     }
+
+    // --- 4. CÁC HÀM XỬ LÝ ĐÁNH GIÁ KHÓA HỌC ---
+    public int getCourseRating(int userId, int courseId) {
+        String sql = "SELECT rating FROM enrollments WHERE user_id = ? AND course_id = ?";
+        try (Connection conn = DatabaseConnect.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, courseId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("rating");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0; // 0 means not rated yet or error
+    }
+
+    public boolean updateCourseRating(int userId, int courseId, int rating) {
+        String sql = "UPDATE enrollments SET rating = ? WHERE user_id = ? AND course_id = ?";
+        try (Connection conn = DatabaseConnect.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, rating);
+            stmt.setInt(2, userId);
+            stmt.setInt(3, courseId);
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -12,7 +12,7 @@ public class CodeCompiler {
         switch (language.toLowerCase()) {
             case "cpp":
             case "c++":
-            case "c": // Gom cả C và C++ dùng chung g++
+            case "c": 
                 return runCppCode(userCode);
             case "nodejs":
             case "javascript":

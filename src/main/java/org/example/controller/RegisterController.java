@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.example.util.FirebaseAuthUtil;
+
 public class RegisterController implements Initializable {
 
     @FXML
@@ -43,6 +45,10 @@ public class RegisterController implements Initializable {
     private PasswordField confirmPasswordField;
     @FXML
     private Button registerButton;
+    @FXML
+    private Button googleRegisterButton;
+    @FXML
+    private Button facebookRegisterButton;
     @FXML
     private Button backToLoginButton;
 
@@ -173,6 +179,16 @@ public class RegisterController implements Initializable {
             return;
         }
 
+        try {
+            // Register user in Firebase first
+            FirebaseAuthUtil.registerUserWithEmailPassword(email, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Lỗi Firebase",
+                    "Không thể tạo tài khoản xác thực qua Firebase. Chi tiết: " + e.getMessage());
+            return;
+        }
+
         String hashedPassword = SecurityUtil.hashPassword(password);
         User newUser = new User(0, username, fullName, email, hashedPassword, "student", "default.png", false);
 
@@ -246,6 +262,22 @@ public class RegisterController implements Initializable {
 
     @FXML
     public void onBackToLoginClick() {
+        switchScene("/login.fxml", "Đăng Nhập");
+    }
+
+    @FXML
+    public void onGoogleRegisterClick(ActionEvent actionEvent) {
+        // Redirect to Login to perform Google OAuth, as Google OAuth handles both login
+        // and registration in this app design
+        showAlert(Alert.AlertType.INFORMATION, "Google Đăng Ký",
+                "Đang chuyển hướng sang trang đăng nhập để tiếp tục với Google.");
+        switchScene("/login.fxml", "Đăng Nhập");
+    }
+
+    @FXML
+    public void onFacebookRegisterClick(ActionEvent actionEvent) {
+        showAlert(Alert.AlertType.INFORMATION, "Facebook Đăng Ký",
+                "Đang chuyển hướng sang trang đăng nhập để tiếp tục với Facebook.");
         switchScene("/login.fxml", "Đăng Nhập");
     }
 

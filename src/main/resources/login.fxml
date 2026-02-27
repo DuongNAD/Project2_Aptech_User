@@ -80,6 +80,21 @@
                             </graphic>
                         </Button>
 
+                        <Button fx:id="facebookLoginButton" onAction="#onFacebookLoginClick" mnemonicParsing="false" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #1877F2; -fx-border-color: transparent; -fx-border-radius: 5; -fx-cursor: hand;" text="Continue with Facebook" textFill="WHITE">
+                            <font>
+                                <Font name="Segoe UI Bold" size="13.0" />
+                            </font>
+                            <graphic>
+                                <Group>
+                                    <children>
+                                        <SVGPath content="M17.525 9H14V7c0-1.032.084-1.682 1.563-1.682h1.868V1.94A23.513 23.513 0 0 0 14.717 1.83C11.97 1.83 10 3.52 10 6.58V9H7v3.5h3v9h4v-9h2.953l.572-3.5z" fill="WHITE" />
+                                    </children>
+                                    <scaleX>0.8</scaleX>
+                                    <scaleY>0.8</scaleY>
+                                </Group>
+                            </graphic>
+                        </Button>
+
                         <HBox alignment="CENTER" prefWidth="300.0" spacing="10.0">
                             <children>
                                 <Separator prefWidth="120.0" />
@@ -115,7 +130,7 @@
                                 <Font name="Segoe UI Bold" size="15.0" />
                             </font>
                             <VBox.margin>
-                                <Insets top="10.0" />
+                                <Insets top="5.0" />
                             </VBox.margin>
                         </Button>
 

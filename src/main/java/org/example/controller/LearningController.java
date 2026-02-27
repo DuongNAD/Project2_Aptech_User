@@ -26,13 +26,30 @@ import java.util.ResourceBundle;
 
 public class LearningController implements Initializable {
 
-    @FXML private Label lblCourseTitle;
-    @FXML private WebView videoPlayer;
-    @FXML private VBox curriculumContainer;
-    @FXML private Label lblCurrentLesson;
+    @FXML
+    private Label lblCourseTitle;
+    @FXML
+    private WebView videoPlayer;
+    @FXML
+    private VBox curriculumContainer;
+    @FXML
+    private Label lblCurrentLesson;
 
-    @FXML private Button btnPrev;
-    @FXML private Button btnNext;
+    @FXML
+    private Button btnPrev;
+    @FXML
+    private Button btnNext;
+
+    @FXML
+    private Button star1;
+    @FXML
+    private Button star2;
+    @FXML
+    private Button star3;
+    @FXML
+    private Button star4;
+    @FXML
+    private Button star5;
 
     private Course currentCourse;
     private CourseDao courseDao = new CourseDao();
@@ -76,10 +93,21 @@ public class LearningController implements Initializable {
             // Lúc init chưa có sự kiện click/button nào -> truyền null
             playLessonAtIndex(currentIndex, null);
         }
+
+        loadUserRating();
+    }
+
+    private void loadUserRating() {
+        if (UserSession.getInstance().getUser() == null || currentCourse == null)
+            return;
+        int userId = UserSession.getInstance().getUser().getId();
+        int rating = courseDao.getCourseRating(userId, currentCourse.getCourseId());
+        updateStarsUI(rating);
     }
 
     private void loadCurriculum(int courseId) {
-        if (curriculumContainer == null) return;
+        if (curriculumContainer == null)
+            return;
 
         allLessons.clear();
         curriculumContainer.getChildren().clear();
@@ -88,7 +116,8 @@ public class LearningController implements Initializable {
 
         for (Section sec : sections) {
             Label secTitle = new Label(sec.getTitle());
-            secTitle.setStyle("-fx-font-weight: bold; -fx-padding: 10 15; -fx-background-color: #E2E8F0; -fx-text-fill: #1E293B;");
+            secTitle.setStyle(
+                    "-fx-font-weight: bold; -fx-padding: 10 15; -fx-background-color: #E2E8F0; -fx-text-fill: #1E293B;");
             secTitle.setMaxWidth(Double.MAX_VALUE);
             curriculumContainer.getChildren().add(secTitle);
 
@@ -103,7 +132,8 @@ public class LearningController implements Initializable {
         List<CodingExercise> exercises = courseDao.getExercises(courseId);
         if (!exercises.isEmpty()) {
             Label exeHeader = new Label("⚡ Bài tập thực hành (Coding)");
-            exeHeader.setStyle("-fx-font-weight: bold; -fx-padding: 15; -fx-background-color: #3B82F6; -fx-text-fill: white;");
+            exeHeader.setStyle(
+                    "-fx-font-weight: bold; -fx-padding: 15; -fx-background-color: #3B82F6; -fx-text-fill: white;");
             exeHeader.setMaxWidth(Double.MAX_VALUE);
             curriculumContainer.getChildren().add(exeHeader);
 
@@ -140,26 +170,31 @@ public class LearningController implements Initializable {
 
     // --- CẬP NHẬT: Thêm tham số Event event vào hàm này ---
     private void playLessonAtIndex(int index, Event event) {
-        if (index < 0 || index >= allLessons.size()) return;
+        if (index < 0 || index >= allLessons.size())
+            return;
 
         LessonItem item = allLessons.get(index);
 
-        if (lblCurrentLesson != null) lblCurrentLesson.setText(item.title);
+        if (lblCurrentLesson != null)
+            lblCurrentLesson.setText(item.title);
 
         if (item.type.equals("VIDEO")) {
             if (webEngine != null) {
                 webEngine.load(DEMO_VIDEO_URL);
             }
         } else if (item.type.equals("CODE")) {
-            if (webEngine != null) webEngine.load(null);
+            if (webEngine != null)
+                webEngine.load(null);
 
             CodingExercise exe = (CodingExercise) item.data;
             // Bây giờ event đã được truyền vào đúng chuẩn
             openCodingPractice(exe, event);
         }
 
-        if (btnPrev != null) btnPrev.setDisable(index == 0);
-        if (btnNext != null) btnNext.setDisable(index == allLessons.size() - 1);
+        if (btnPrev != null)
+            btnPrev.setDisable(index == 0);
+        if (btnNext != null)
+            btnNext.setDisable(index == allLessons.size() - 1);
     }
 
     @FXML
@@ -180,7 +215,8 @@ public class LearningController implements Initializable {
     }
 
     private void markCurrentLessonAsDone() {
-        if (currentIndex < 0 || currentIndex >= allLessons.size()) return;
+        if (currentIndex < 0 || currentIndex >= allLessons.size())
+            return;
         LessonItem item = allLessons.get(currentIndex);
         int userId = UserSession.getInstance().getUser().getId();
         int courseId = currentCourse.getCourseId();
@@ -194,7 +230,8 @@ public class LearningController implements Initializable {
     // --- CẬP NHẬT: Xử lý trường hợp event bị null ---
     private void openCodingPractice(CodingExercise exe, Event event) {
         try {
-            if (webEngine != null) webEngine.load(null);
+            if (webEngine != null)
+                webEngine.load(null);
 
             // Trường hợp 1: Có sự kiện (Click chuột hoặc Nút bấm) -> Dùng Navigation chuẩn
             if (event != null) {
@@ -203,8 +240,7 @@ public class LearningController implements Initializable {
                         org.example.util.Navigation.CODING_VIEW,
                         (org.example.controller.CodingPracticeController controller) -> {
                             controller.setExerciseData(exe);
-                        }
-                );
+                        });
             }
             // Trường hợp 2: Event bị null (VD: Load bài code ngay khi mở màn hình)
             // Ta phải "chữa cháy" bằng cách tìm Stage thông qua 1 Node có sẵn trên màn hình
@@ -214,13 +250,15 @@ public class LearningController implements Initializable {
                     Stage stage = (Stage) lblCourseTitle.getScene().getWindow();
 
                     // Tự gọi logic load thủ công (giống Navigation.toSync nhưng không cần event)
-                    javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource(org.example.util.Navigation.CODING_VIEW));
+                    javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                            getClass().getResource(org.example.util.Navigation.CODING_VIEW));
                     javafx.scene.Parent root = loader.load();
 
                     org.example.util.ThemeManager.applyTheme(root);
 
                     // Thay thế nội dung trong ContentArea
-                    javafx.scene.layout.StackPane contentArea = (javafx.scene.layout.StackPane) stage.getScene().lookup("#contentArea");
+                    javafx.scene.layout.StackPane contentArea = (javafx.scene.layout.StackPane) stage.getScene()
+                            .lookup("#contentArea");
                     if (contentArea != null) {
                         contentArea.getChildren().clear();
                         contentArea.getChildren().add(root);
@@ -240,7 +278,69 @@ public class LearningController implements Initializable {
 
     @FXML
     void handleBack(ActionEvent event) {
-        if (webEngine != null) webEngine.load(null);
+        if (webEngine != null)
+            webEngine.load(null);
         org.example.util.Navigation.to(event, org.example.util.Navigation.MY_COURSES_VIEW);
+    }
+
+    @FXML
+    void handleRating1(ActionEvent event) {
+        submitRating(1);
+    }
+
+    @FXML
+    void handleRating2(ActionEvent event) {
+        submitRating(2);
+    }
+
+    @FXML
+    void handleRating3(ActionEvent event) {
+        submitRating(3);
+    }
+
+    @FXML
+    void handleRating4(ActionEvent event) {
+        submitRating(4);
+    }
+
+    @FXML
+    void handleRating5(ActionEvent event) {
+        submitRating(5);
+    }
+
+    private void submitRating(int rating) {
+        if (UserSession.getInstance().getUser() == null || currentCourse == null)
+            return;
+        int userId = UserSession.getInstance().getUser().getId();
+
+        boolean success = courseDao.updateCourseRating(userId, currentCourse.getCourseId(), rating);
+        if (success) {
+            updateStarsUI(rating);
+            System.out.println("✅ Đã cập nhật đánh giá khóa học: " + rating + " sao");
+
+            javafx.scene.control.Alert alert = new javafx.scene.control.Alert(
+                    javafx.scene.control.Alert.AlertType.INFORMATION);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText(null);
+            alert.setContentText("Cảm ơn bạn đã đánh giá khóa học " + rating + " sao!");
+            alert.showAndWait();
+        } else {
+            System.err.println("❌ Lỗi khi cập nhật đánh giá khóa học.");
+        }
+    }
+
+    private void updateStarsUI(int rating) {
+        Button[] stars = { star1, star2, star3, star4, star5 };
+        for (int i = 0; i < stars.length; i++) {
+            if (stars[i] != null) {
+                if (i < rating) {
+                    stars[i].setStyle(
+                            "-fx-background-color: transparent; -fx-font-size: 20px; -fx-text-fill: #F59E0B; -fx-cursor: hand;");
+                } else {
+                    stars[i].setStyle(
+                            "-fx-background-color: transparent; -fx-font-size: 20px; -fx-text-fill: gray; -fx-cursor: hand;");
+                }
+            }
+        }
     }
 }
