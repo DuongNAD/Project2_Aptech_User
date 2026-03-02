@@ -1,0 +1,160 @@
+
+
+
+
+
+.register-container {
+    -fx-background-color: transparent;
+}
+
+.register-card {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 20, 0, 0, 5);
+}
+
+.left-panel {
+    background-color: linear-gradient(to bottom right, #1E293B, #0F172A);
+    -fx-background-color: linear-gradient(to bottom right, #1E293B, #0F172A);
+    border-radius: 20px 0 0 20px;
+    -fx-background-radius: 20 0 0 20;
+}
+
+.welcome-text {
+    font-size: 24px;
+    -fx-font-size: 24px;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    color: white;
+    -fx-text-fill: white;
+}
+
+.sub-text {
+    font-size: 14px;
+    -fx-font-size: 14px;
+    color: #94A3B8;
+    -fx-text-fill: #94A3B8;
+}
+
+
+.form-title {
+    font-size: 28px;
+    -fx-font-size: 28px;
+    font-weight: 900;
+    -fx-font-weight: 900;
+    color: #1E293B;
+    -fx-text-fill: #1E293B;
+}
+
+.input-label {
+    font-size: 13px;
+    -fx-font-size: 13px;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    color: #475569;
+    -fx-text-fill: #475569;
+}
+
+
+.register-input {
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 12;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1E293B;
+    -fx-prompt-text-fill: #94A3B8;
+}
+
+.register-input:focused {
+    background-color: white;
+    -fx-background-color: white;
+    border-color: #3B82F6;
+    -fx-border-color: #3B82F6;
+    -fx-effect: dropshadow(three-pass-box, rgba(59, 130, 246, 0.2), 5, 0, 0, 0);
+}
+
+
+.btn-primary {
+    -fx-background-color: #F97316;
+    
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(249, 115, 22, 0.3), 10, 0, 0, 3);
+}
+
+.btn-primary:hover {
+    background-color: #EA580C;
+    -fx-background-color: #EA580C;
+    -fx-effect: dropshadow(three-pass-box, rgba(234, 88, 12, 0.4), 12, 0, 0, 4);
+}
+
+
+.btn-google {
+    background-color: white;
+    -fx-background-color: white;
+    border-color: #E2E8F0;
+    -fx-border-color: #E2E8F0;
+    border-radius: 8px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    color: #334155;
+    -fx-text-fill: #334155;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    cursor: pointer;
+    -fx-cursor: hand;
+    padding: 8px 15px;
+    -fx-padding: 8 15;
+}
+
+.btn-google:hover {
+    background-color: #F8FAFC;
+    -fx-background-color: #F8FAFC;
+    border-color: #CBD5E1;
+    -fx-border-color: #CBD5E1;
+}
+
+.btn-facebook {
+    background-color: #1877F2;
+    -fx-background-color: #1877F2;
+    border-color: #1877F2;
+    -fx-border-color: #1877F2;
+    border-radius: 8px;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    color: white;
+    -fx-text-fill: white;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    cursor: pointer;
+    -fx-cursor: hand;
+    padding: 8px 15px;
+    -fx-padding: 8 15;
+}
+
+.btn-facebook:hover {
+    background-color: #166FE5;
+    -fx-background-color: #166FE5;
+}
+
+.link-text {
+    color: #3B82F6;
+    -fx-text-fill: #3B82F6;
+    font-weight: bold;
+    -fx-font-weight: bold;
+    cursor: pointer;
+    -fx-cursor: hand;
+    background-color: transparent;
+    -fx-background-color: transparent;
+    padding: 0;
+    -fx-padding: 0;
+}
+
+.link-text:hover {
+    -fx-underline: true;
+}

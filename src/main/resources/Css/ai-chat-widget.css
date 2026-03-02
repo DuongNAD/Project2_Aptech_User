@@ -1,0 +1,102 @@
+
+.ai-widget-container {
+    -fx-padding: 0 20 20 0;
+}
+
+.fab-btn {
+    -fx-background-color: #6366F1;
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-background-radius: 50%;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 4);
+    -fx-alignment: center;
+}
+
+.fab-btn:hover {
+    -fx-background-color: #4F46E5;
+}
+
+.chat-popup {
+    -fx-background-color: #1E293B;
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: #334155;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 20, 0, 0, 8);
+}
+
+.chat-header {
+    -fx-background-color: #334155;
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-padding: 10 15 10 15;
+}
+
+.chat-title {
+    -fx-text-fill: #F8FAFC;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.btn-close-chat {
+    -fx-background-color: transparent;
+    -fx-text-fill: #94A3B8;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+.btn-close-chat:hover {
+    -fx-text-fill: #EF4444;
+}
+
+.chat-messages-area {
+    -fx-background-color: #1E293B;
+    -fx-background: #1E293B;
+    -fx-padding: 10;
+}
+
+.chat-input-area {
+    -fx-padding: 10;
+    -fx-border-color: #334155 transparent transparent transparent;
+}
+
+.chat-input-field {
+    -fx-background-color: #0F172A;
+    -fx-text-fill: white;
+    -fx-background-radius: 20px;
+    -fx-padding: 8 15 8 15;
+    -fx-border-color: #475569;
+    -fx-border-radius: 20px;
+}
+
+.btn-send-chat {
+    -fx-background-color: #6366F1;
+    -fx-text-fill: white;
+    -fx-background-radius: 50%;
+    -fx-cursor: hand;
+}
+
+.btn-send-chat:hover {
+    -fx-background-color: #4F46E5;
+}
+
+.btn-send-chat:disabled {
+    -fx-background-color: #475569;
+    -fx-text-fill: #94A3B8;
+}
+
+.msg-ai {
+    -fx-font-size: 13px;
+    -fx-text-fill: #E2E8F0;
+    -fx-background-color: #334155;
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 0 12px 12px 12px;
+}
+
+.msg-user {
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-background-color: #6366F1;
+    -fx-padding: 8 12 8 12;
+    -fx-background-radius: 12px 0 12px 12px;
+}
