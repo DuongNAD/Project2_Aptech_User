@@ -210,25 +210,31 @@ public class RegisterController implements Initializable {
             return;
         }
 
-        try {
-
-            FirebaseAuthUtil.registerUserWithEmailPassword(email, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Lỗi Firebase",
-                    "Không thể tạo tài khoản xác thực qua Firebase. Chi tiết: " + e.getMessage());
-            return;
-        }
+//        try {
+//
+//            FirebaseAuthUtil.registerUserWithEmailPassword(email, password);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            showAlert(Alert.AlertType.ERROR, "Lỗi Firebase",
+//                    "Không thể tạo tài khoản xác thực qua Firebase. Chi tiết: " + e.getMessage());
+//            return;
+//        }
 
         String hashedPassword = SecurityUtil.hashPassword(password);
         User newUser = new User(0, username, fullName, email, hashedPassword, "student", "default.png", false);
 
         String otp = UserDao.generateOTP();
-
-        new Thread(() -> {
-            String emailContent = emailService.getOtpEmailTemplate(newUser.getUsername(), otp);
-            emailService.sendEmail(email, "Xác thực tài khoản EduPath", emailContent);
-        }).start();
+        System.out.println("OTP: " + otp);
+        try {
+            new Thread(() -> {
+                String emailContent = emailService.getOtpEmailTemplate(newUser.getUsername(), otp);
+                emailService.sendEmail(email, "Xác thực tài khoản EduPath", emailContent);
+            }).start();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Lỗi gửi email", "Không thể gửi email xác thực. Vui lòng thử lại!");
+            return;
+        }
         switchScene(newUser, otp);
     }
 
